@@ -33,13 +33,13 @@ public:
 	FORCEINLINE float GetPosicionZ() const { return posicionZ; }
 	FORCEINLINE FString GetNombre() const { return nombre; }
 
-	FORCEINLINE void SetResistencia(float _resistencia) { resistencia = resistencia; }
-	FORCEINLINE void SetVelocidad(float _velocidad) { velocidad = velocidad; }
-	FORCEINLINE void SetDanoImpacto(float _danoImpacto) { danoImpacto = danoImpacto; }
-	FORCEINLINE void SetPosicionX(float _posicionX) { posicionX = posicionX; }
-	FORCEINLINE void SetPosicionY(float _posicionY) { posicionY = posicionY; }
-	FORCEINLINE void SetPosicionZ(float _posicionZ) { posicionZ = posicionZ; }
-	FORCEINLINE void SetNombre(FString _nombre) { nombre = nombre; }
+	FORCEINLINE void SetResistencia(float _resistencia) { resistencia = _resistencia; }
+	FORCEINLINE void SetVelocidad(float _velocidad) { velocidad = _velocidad; }
+	FORCEINLINE void SetDanoImpacto(float _danoImpacto) { danoImpacto = _danoImpacto; }
+	FORCEINLINE void SetPosicionX(float _posicionX) { posicionX = _posicionX; }
+	FORCEINLINE void SetPosicionY(float _posicionY) { posicionY = _posicionY; }
+	FORCEINLINE void SetPosicionZ(float _posicionZ) { posicionZ = _posicionZ; }
+	FORCEINLINE void SetNombre(FString _nombre) { nombre = _nombre; }
 
 public:	
 	// Sets default values for this actor's properties

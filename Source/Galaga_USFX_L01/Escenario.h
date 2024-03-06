@@ -28,10 +28,10 @@ public:
 	FORCEINLINE FString GetDificultad() const { return dificultad; }
 	FORCEINLINE int GetNivel() const { return nivel; }
 
-	FORCEINLINE void SetTipoEscenario(FString _tipoEscenario) { tipoEscenario = tipoEscenario; }
-	FORCEINLINE void SetNombreEscenario(FString _nombreEscebario) { nombreEscenario = nombreEscenario; }
-	FORCEINLINE void SetDificultad(FString _dificultad) { dificultad = dificultad; }
-	FORCEINLINE void SetNivel(int _nivel) { nivel = nivel; }
+	FORCEINLINE void SetTipoEscenario(FString _tipoEscenario) { tipoEscenario = _tipoEscenario; }
+	FORCEINLINE void SetNombreEscenario(FString _nombreEscenario) { nombreEscenario = _nombreEscenario; }
+	FORCEINLINE void SetDificultad(FString _dificultad) { dificultad = _dificultad; }
+	FORCEINLINE void SetNivel(int _nivel) { nivel = _nivel; }
 
 public:	
 	// Sets default values for this actor's properties

@@ -34,13 +34,13 @@ public:
 	FORCEINLINE float GetVolumen() const { return volumen; }
 	FORCEINLINE FString GetNombre() const { return nombre; }
 
-	FORCEINLINE void SetPosicionX(float _posicionX) { posicionX = posicionX; }
-	FORCEINLINE void SetPosicionY(float _posicionY) { posicionY = posicionY; }
-	FORCEINLINE void SetPosicionZ(float _posicionZ) { posicionZ = posicionZ; }
-	FORCEINLINE void SetVelocidad(float _velocidad) { velocidad = velocidad; }
-	FORCEINLINE void SetDano(float _dano) { dano = dano; }
-	FORCEINLINE void SetVolumen(float _volumen) { volumen = volumen; }
-	FORCEINLINE void SetNombre(FString _nombre) { nombre = nombre; }
+	FORCEINLINE void SetPosicionX(float _posicionX) { posicionX = _posicionX; }
+	FORCEINLINE void SetPosicionY(float _posicionY) { posicionY = _posicionY; }
+	FORCEINLINE void SetPosicionZ(float _posicionZ) { posicionZ = _posicionZ; }
+	FORCEINLINE void SetVelocidad(float _velocidad) { velocidad = _velocidad; }
+	FORCEINLINE void SetDano(float _dano) { dano = _dano; }
+	FORCEINLINE void SetVolumen(float _volumen) { volumen = _volumen; }
+	FORCEINLINE void SetNombre(FString _nombre) { nombre = _nombre; }
 
 	
 public:	
