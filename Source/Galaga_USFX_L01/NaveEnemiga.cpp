@@ -11,10 +11,10 @@ ANaveEnemiga::ANaveEnemiga()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> NaveEnemiga(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Cone.Shape_Cone'"));
+	// static ConstructorHelpers::FObjectFinder<UStaticMesh> NaveEnemiga(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Cone.Shape_Cone'"));
 	// Create the mesh component
 	NaveEnemigaMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("NaveEnemiga"));
-	NaveEnemigaMesh->SetStaticMesh(NaveEnemiga.Object);
+	//NaveEnemigaMesh->SetStaticMesh(NaveEnemiga.Object);
 	NaveEnemigaMesh->SetupAttachment(RootComponent);
 	RootComponent = NaveEnemigaMesh;
 }

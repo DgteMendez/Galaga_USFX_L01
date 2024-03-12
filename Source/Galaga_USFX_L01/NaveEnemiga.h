@@ -8,12 +8,12 @@
 
 class UStaticMeshComponent;
 
-UCLASS()
+UCLASS(abstract)
 class GALAGA_USFX_L01_API ANaveEnemiga : public AActor
 {
 	GENERATED_BODY()
 	
-private:
+protected:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* NaveEnemigaMesh;
 	float resistencia;
@@ -56,4 +56,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+private:
+	void Mover(float DeltaTime) PURE_VIRTUAL(ANaveEnemiga::Mover, );
+	void Disparar() PURE_VIRTUAL(ANaveEnemiga::tiempoDisparo, );
+	void Destruirse() PURE_VIRTUAL(ANaveEnemiga::TipoDestrucccion, );
+	void Atacar() PURE_VIRTUAL(ANaveEnemiga::ModoAtaque, );
+	void Escapar() PURE_VIRTUAL(ANaveEnemiga::ModoEscape, );
+	void Esconderse() PURE_VIRTUAL(ANaveEnemiga::Esconderse, );
 };
