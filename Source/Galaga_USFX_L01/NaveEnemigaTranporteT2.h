@@ -24,9 +24,14 @@ public:
 
 	FORCEINLINE void SetCantAlienigenas(int _cantAlienigenas) { cantAlienigenas = _cantAlienigenas; }
 
+	FORCEINLINE void SetVelocidad(float _velocidad) override{ velocidad = _velocidad; }
+
+
 public:
 
 	virtual void Tick(float DeltaTime)override;
+
+
 
 protected:
 

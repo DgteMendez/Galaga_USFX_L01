@@ -9,6 +9,8 @@ ANaveEnemigaTranporteT1::ANaveEnemigaTranporteT1()
 	//// Create the mesh component
 	//mallaNaveEnemiga = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
 	NaveEnemigaMesh->SetStaticMesh(ShipMesh.Object);
+
+
 }
 
 void ANaveEnemigaTranporteT1::Tick(float DeltaTime)

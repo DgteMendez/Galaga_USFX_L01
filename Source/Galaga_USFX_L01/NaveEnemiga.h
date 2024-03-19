@@ -36,7 +36,7 @@ public:
 	FORCEINLINE FString GetNombre() const { return nombre; }
 
 	FORCEINLINE void SetResistencia(float _resistencia) { resistencia = _resistencia; }
-	FORCEINLINE void SetVelocidad(float _velocidad) { velocidad = _velocidad; }
+	FORCEINLINE virtual void SetVelocidad(float _velocidad) { velocidad = _velocidad; }
 	FORCEINLINE void SetDanoProducido(float _danoProducido) { danoProducido = _danoProducido; }
 	FORCEINLINE void SetTiempoDisparo(float _tiempoDisparo) { tiempoDisparo = _tiempoDisparo; }
 	FORCEINLINE void SetPosicionX(float _posicionX) { posicionX = _posicionX; }
@@ -63,4 +63,5 @@ private:
 	void Atacar() PURE_VIRTUAL(ANaveEnemiga::ModoAtaque, );
 	void Escapar() PURE_VIRTUAL(ANaveEnemiga::ModoEscape, );
 	void Esconderse() PURE_VIRTUAL(ANaveEnemiga::Esconderse, );
+
 };

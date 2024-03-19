@@ -62,4 +62,19 @@ public:
 	ANaveEnemigaReabastecimientoH2* NaveEnemigaReabastecimientoH202;
 	ANaveEnemigaNodrizaC1* NaveEnemigaNodrizaC102;
 	ANaveEnemigaNodrizaC2* NaveEnemigaNodrizaC202;
+
+public:
+
+	TArray<ANaveEnemiga*> NavesEnemigas;
+	TArray<ANaveEnemigaCaza*> NavesEnemigasCazas;
+	TArray<ANaveEnemigaTranporte*> NavesEnemigasTranportes;
+
+private:
+	float tiempoTranscurrido = 0;
+
+	virtual void Tick(float DeltaTime)override;
+
+public:
+	TMap<FVector, AActor*> ObstaculosYPowerUps;
+
 };
