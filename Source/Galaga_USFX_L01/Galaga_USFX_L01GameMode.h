@@ -68,6 +68,9 @@ public:
 	TArray<ANaveEnemiga*> NavesEnemigas;
 	TArray<ANaveEnemigaCaza*> NavesEnemigasCazas;
 	TArray<ANaveEnemigaTranporte*> NavesEnemigasTranportes;
+	TArray<ANaveEnemigaEspia*> NavesEnemigasEspias;
+	TArray<ANaveEnemigaReabastecimiento*> NavesEnemigasReabastecimientos;
+	TArray<ANaveEnemigaNodriza*> NavesEnemigasNodrizas;
 
 private:
 	float tiempoTranscurrido = 0;
@@ -75,6 +78,6 @@ private:
 	virtual void Tick(float DeltaTime)override;
 
 public:
-	TMap<FVector, AActor*> ObstaculosYPowerUps;
+	TMap<FVector, AActor*> Obstaculos;
 
 };

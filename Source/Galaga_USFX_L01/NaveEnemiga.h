@@ -23,7 +23,12 @@ protected:
 	float posicionX;
 	float posicionY;
 	float posicionZ;
+	float limiteInferiorX;
+	float limiteSuperiorX;
+	float limiteIzquierdaY;
+	float limiteDerechaY;
 	FString nombre;
+	
 
 public:
 	FORCEINLINE float GetResistencia() const { return resistencia; }

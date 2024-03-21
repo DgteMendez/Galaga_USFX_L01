@@ -32,4 +32,3 @@ void AObstaculo::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-

@@ -17,6 +17,11 @@ ANaveEnemiga::ANaveEnemiga()
 	//NaveEnemigaMesh->SetStaticMesh(NaveEnemiga.Object);
 	NaveEnemigaMesh->SetupAttachment(RootComponent);
 	RootComponent = NaveEnemigaMesh;
+
+	limiteInferiorX = -1800.0f;
+	limiteSuperiorX = 1800.0f;
+	limiteIzquierdaY = -1800.0f;
+	limiteDerechaY = 1800.0f;
 }
 
 // Called when the game starts or when spawned

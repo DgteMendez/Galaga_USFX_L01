@@ -53,14 +53,14 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	FVector ubicacionObstaculo = FVector(1200.0f, 1600.0f, 250.0f);
 	FRotator rotacionObstaculo = FRotator(0.0f, 0.0f, 0.0f);
 	
-	FVector ubicacionNaveEnemigaCaza = FVector(0.0f, -100.0f, 200.0f);
-	FRotator rotacionNaveEnemigaCaza = FRotator(0.0f, 0.0f, 0.0f);
+	FVector ubicacionNaveEnemigaCaza = FVector(600.0f, 0.0f, 200.0f);
+	FRotator rotacionNaveEnemigaCaza = FRotator(0.0f, 180.0f, 0.0f);
 
-	FVector ubicacionNaveEnemigaTranporte = FVector(0.0f, 100.0f, 200.0f);
-	FRotator rotacionNaveEnemigaTranporte = FRotator(0.0f, 0.0f, 0.0f);
+	FVector ubicacionNaveEnemigaTranporte = FVector(400.0f, 0.0f, 200.0f);
+	FRotator rotacionNaveEnemigaTranporte = FRotator(0.0f, 180.0f, 0.0f);
 
 	FVector ubicacionNaveEnemigaEspia = FVector(0.0f, 300.0f, 200.0f);
-	FRotator rotacionNaveEnemigaEspia = FRotator(0.0f, 0.0f, 0.0f);
+	FRotator rotacionNaveEnemigaEspia = FRotator(0.0f, 180.0f, 0.0f);
 
 	FVector ubicacionNaveEnemigaReabastecimiento = FVector(0.0f, 500.0f, 200.0f);
 	FRotator rotacionNaveEnemigaReabastecimiento = FRotator(0.0f, 0.0f, 0.0f);
@@ -98,43 +98,80 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	FVector ubicacionNaveEnemigaNodrizaC2 = FVector(600.0f, 300.0f, 200.0f);
 	FRotator rotacionNaveEnemigaNodrizaC2 = FRotator(0.0f, 0.0f, 0.0f);
 
-	FVector ubicacionInicioNavesEnemigasCaza=FVector(200.0f, 200.0f, 200.0f);
+	FVector ubicacionInicioNavesEnemigasCaza=FVector(600.0f, -600.0f, 200.0f);
+	FRotator rotacionInicioNavesEnemigasCaza = FRotator(0.0f, 180.0f, 0.0f);
 
-	FVector ubicacionInicioNavesEnemigasTranporte=FVector(800.0f, 200.0f, 200.0f);
+	FVector ubicacionInicioNavesEnemigasTranporte=FVector(400.0f, -600.0f, 200.0f);
+	FRotator rotacionInicioNavesEnemigasTranporte = FRotator(0.0f, 180.0f, 0.0f);
+
+	FVector ubicacionInicioNavesEnemigasEspia = FVector(0.0f, 300.0f, 200.0f);
+	FRotator rotacionInicioNavesEnemigasEspia = FRotator(0.0f, 270.0f, 0.0f);
+
+	FVector ubicacionInicioNavesEnemigasReabastecimiento = FVector(0.0f, -300.0f, 200.0f);
+	FRotator rotacionInicioNavesEnemigasReabastecimiento = FRotator(0.0f, 180.0f, 0.0f);
+
+	FVector ubicacionInicioNavesEnemigasNodriza = FVector(800.0f, -1400.0f, 200.0f);
+	FRotator rotacionInicioNavesEnemigasNodriza = FRotator(0.0f, 180.0f, 0.0f);
 
 	UWorld* const World = GetWorld();
 	if (World != nullptr)
 	{
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 
 
 			ubicacionInicioNavesEnemigasCaza = ubicacionInicioNavesEnemigasCaza + FVector(0.0f, 200.0f, 0.0f);
-			ANaveEnemigaCaza* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaCaza>(ubicacionInicioNavesEnemigasCaza, rotacionNaveEnemigaCaza);
+			ANaveEnemigaCaza* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaCaza>(ubicacionInicioNavesEnemigasCaza, rotacionInicioNavesEnemigasCaza);
 			NavesEnemigas.Push(NaveEnemigaTemporal);
 			NavesEnemigas.Push(NaveEnemigaTemporal);
-			NaveEnemigaTemporal->SetVelocidad(-200);
 
 		}
 
-		for (int j = 0; j < 5; j++) {
+		for (int j = 0; j < 6; j++) {
 
 
 			ubicacionInicioNavesEnemigasTranporte = ubicacionInicioNavesEnemigasTranporte + FVector(0.0f, 200.0f, 0.0f);
-			ANaveEnemigaTranporte* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaTranporte>(ubicacionInicioNavesEnemigasTranporte, rotacionNaveEnemigaCaza);
+			ANaveEnemigaTranporte* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaTranporte>(ubicacionInicioNavesEnemigasTranporte, rotacionInicioNavesEnemigasTranporte);
 			NavesEnemigas.Push(NaveEnemigaTemporal);
 			NavesEnemigas.Push(NaveEnemigaTemporal);
-			NaveEnemigaTemporal->SetVelocidad(-200);
 
 		}
-		
-		
+
+		for (int k = 0; k < 6; k++) {
+
+			ubicacionInicioNavesEnemigasEspia = ubicacionInicioNavesEnemigasEspia + FVector(0.0f, 200.0f, 0.0f);
+			ANaveEnemigaEspia* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaEspia>(ubicacionInicioNavesEnemigasEspia, rotacionInicioNavesEnemigasEspia);
+			NavesEnemigas.Push(NaveEnemigaTemporal);
+			NavesEnemigas.Push(NaveEnemigaTemporal);
+
+		}
+
+		for (int l = 0; l < 6; l++) {
+
+			ubicacionInicioNavesEnemigasReabastecimiento = ubicacionInicioNavesEnemigasReabastecimiento + FVector(0.0f, -200.0f, 0.0f);
+			ANaveEnemigaReabastecimiento* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaReabastecimiento>(ubicacionInicioNavesEnemigasReabastecimiento, rotacionInicioNavesEnemigasReabastecimiento);
+			NavesEnemigas.Push(NaveEnemigaTemporal);
+			NavesEnemigas.Push(NaveEnemigaTemporal);
+
+		}
+
+		for (int m = 0; m < 6; m++) {
+
+			ubicacionInicioNavesEnemigasNodriza = ubicacionInicioNavesEnemigasNodriza + FVector(0.0f, 400.0f, 0.0f);
+			ANaveEnemigaNodriza* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaNodriza>(ubicacionInicioNavesEnemigasNodriza, rotacionInicioNavesEnemigasNodriza);
+			NavesEnemigas.Push(NaveEnemigaTemporal);
+			NavesEnemigas.Push(NaveEnemigaTemporal);
+
+		}
+
+
 		//NaveEnemiga01 = World->SpawnActor<ANaveEnemiga>(ubicacionNave, rotacionNave);
-		
+
 		//AlienigenaEnemigo01 = World->SpawnActor<AAlienigenaEnemigo>(ubicacionAlienigena, rotacionAlienigena);
 		//Proyectil01 = World->SpawnActor<AProyectil>(ubicacionProyectil, rotacionProyectil);
 		//Escenario01 = World->SpawnActor<AEscenario>(ubicacionEscenario, rotacionEscenario);
 		//NaveAmiga01 = World->SpawnActor<ANaveAmiga>(ubicacionNaveAmiga, rotacionNaveAmiga);
+		
 		//Obstaculo01 = World->SpawnActor<AObstaculo>(ubicacionObstaculo, rotacionObstaculo);
 
 		//NaveEnemigaCaza01 = World->SpawnActor<ANaveEnemigaCaza>(ubicacionNaveEnemigaCaza, rotacionNaveEnemigaCaza);
@@ -184,18 +221,18 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 
 void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-	tiempoTranscurrido++;
-	if (tiempoTranscurrido >= 50) {
-		int numeroEnemigo = FMath::RandRange(1, 10);
-	
-		NavesEnemigas[numeroEnemigo]->PrimaryActorTick.bCanEverTick = false;
-		NavesEnemigas[numeroEnemigo]->SetVelocidad(0);
-		if (GEngine) {
-			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("El board está apareciendo")));
-		}
-
-		UE_LOG(LogTemp, Warning, TEXT("Hola"));
-		tiempoTranscurrido = 0;
-	}
+//	Super::Tick(DeltaTime);
+//	tiempoTranscurrido++;
+//	if (tiempoTranscurrido >= 50) {
+//		int numeroEnemigo = FMath::RandRange(1, 5);
+//	
+//		NavesEnemigas[numeroEnemigo]->PrimaryActorTick.bCanEverTick = false;
+//		NavesEnemigas[numeroEnemigo]->SetVelocidad(0);
+//		if (GEngine) {
+//			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Contenedores")));
+//		}
+//
+//		UE_LOG(LogTemp, Warning, TEXT("Hola"));
+//		tiempoTranscurrido = 0;
+//	}
 }

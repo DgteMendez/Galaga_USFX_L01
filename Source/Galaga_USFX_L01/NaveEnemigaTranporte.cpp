@@ -5,10 +5,13 @@
 ANaveEnemigaTranporte::ANaveEnemigaTranporte()
 {
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_TriPyramid.Shape_TriPyramid'"));
+	velocidad = -300.0f;
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("StaticMesh'/Game/ASETS/bf063f11968e_quiero_una_nave_tra.bf063f11968e_quiero_una_nave_tra'"));
 	//// Create the mesh component
 	//mallaNaveEnemiga = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
 	NaveEnemigaMesh->SetStaticMesh(ShipMesh.Object);
+	GetActorRelativeScale3D();
+	SetActorScale3D(FVector(2.0f, 2.0f, 2.0f));
 
 }
 
@@ -24,13 +27,19 @@ void ANaveEnemigaTranporte::Mover(float DeltaTime)
 	FVector PosicionActual = GetActorLocation();
 
 	// Genera nuevas coordenadas X e Y aleatorias
-	float DesplazamientoX = GetVelocidad() * DeltaTime;
+	float DesplazamientoX = velocidad * DeltaTime;
 
 	// Crea un nuevo vector de posición con las coordenadas aleatorias y la misma Z que la posición actual
 	FVector NuevaPosicion = FVector(PosicionActual.X + DesplazamientoX, PosicionActual.Y, PosicionActual.Z);
 
 	// Establece la nueva posición del actor
 	SetActorLocation(NuevaPosicion);
+
+	//si supera cierto limite en X vuelve a la posicion inicial
+	if (NuevaPosicion.X < limiteInferiorX)
+	{
+		SetActorLocation(FVector(0.0f, PosicionActual.Y, PosicionActual.Z));
+	}
 }
 
 void ANaveEnemigaTranporte::Destruirse()
