@@ -22,6 +22,7 @@
 #include "NaveEnemigaReabastecimientoH2.h"
 #include "NaveEnemigaNodrizaC1.h"
 #include "NaveEnemigaNodrizaC2.h"
+#include "InventoryActor.h"
 
 AGalaga_USFX_L01GameMode::AGalaga_USFX_L01GameMode()
 {
@@ -113,6 +114,9 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	FVector ubicacionInicioNavesEnemigasNodriza = FVector(800.0f, -1400.0f, 200.0f);
 	FRotator rotacionInicioNavesEnemigasNodriza = FRotator(0.0f, 180.0f, 0.0f);
 
+	FVector ubicacionInventoryActor = FVector(-900.0f, 50.0f, 250.0f);
+	FRotator rotacionInventoryActor = FRotator(0.0f, 0.0f, 0.0f);
+
 	UWorld* const World = GetWorld();
 	if (World != nullptr)
 	{
@@ -164,6 +168,17 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 
 		}
 
+		//TMap
+
+		for (int i = 0; i < 1; i++) {
+
+			FVector SpawnLocation = FVector((-600.0f), FMath::RandRange(-1000.0f, 1000.0f), 200.0f);
+			AObstaculo* NewObstaculo = GetWorld()->SpawnActor<AObstaculo>(AObstaculo::StaticClass(), SpawnLocation, FRotator::ZeroRotator);
+			TMObstaculosYAlienigenas.Add(SpawnLocation, NewObstaculo);
+
+		}
+
+		InventoryActor01 = World->SpawnActor<AInventoryActor>(ubicacionInventoryActor, rotacionInventoryActor);
 
 		//NaveEnemiga01 = World->SpawnActor<ANaveEnemiga>(ubicacionNave, rotacionNave);
 
@@ -221,18 +236,18 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 
 void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
 {
-//	Super::Tick(DeltaTime);
-//	tiempoTranscurrido++;
-//	if (tiempoTranscurrido >= 50) {
-//		int numeroEnemigo = FMath::RandRange(1, 5);
-//	
-//		NavesEnemigas[numeroEnemigo]->PrimaryActorTick.bCanEverTick = false;
-//		NavesEnemigas[numeroEnemigo]->SetVelocidad(0);
-//		if (GEngine) {
-//			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Contenedores")));
-//		}
-//
-//		UE_LOG(LogTemp, Warning, TEXT("Hola"));
-//		tiempoTranscurrido = 0;
-//	}
+	Super::Tick(DeltaTime);
+	tiempoTranscurrido++;
+	if (tiempoTranscurrido >= 50) {
+		int numeroEnemigo = FMath::RandRange(1, 5);
+	
+		NavesEnemigas[numeroEnemigo]->PrimaryActorTick.bCanEverTick = false;
+		NavesEnemigas[numeroEnemigo]->SetVelocidad(0);
+		if (GEngine) {
+			//GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Contenedores")));
+		}
+
+		UE_LOG(LogTemp, Warning, TEXT("Hola"));
+		tiempoTranscurrido = 0;
+	}
 }

@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InventoryComponent.h"
+#include "InventoryActor.h"
+#include "InventoryGun.h"
 #include "Galaga_USFX_L01Pawn.generated.h"
 
 UCLASS(Blueprintable)
@@ -24,6 +27,35 @@ class AGalaga_USFX_L01Pawn : public APawn
 	class USpringArmComponent* CameraBoom;
 
 public:
+
+	//Inventario Energia
+	UPROPERTY()
+	UInventoryComponent* MyInventoryEnergy;
+
+	UFUNCTION()
+	void DropItem();
+
+	UFUNCTION()
+	void TakeItem(AInventoryActor* InventoryItemEnergy);
+
+	UFUNCTION()
+	virtual void NotifyHit(class UPrimitiveComponent* MyComp,
+		AActor* Other, class UPrimitiveComponent* OtherComp,
+		bool bSelfMoved, FVector HitLocation, FVector
+		HitNormal, FVector NormalImpulse, const FHitResult&
+		Hit) override;
+
+	//Inventario Armas
+	UPROPERTY()
+	UInventoryComponent* MyInventoryGun;
+
+	UFUNCTION()
+	void DropItemGun();
+
+	UFUNCTION()
+	void TakeItemGun(AInventoryGun* InventoryItemGun);
+
+
 	AGalaga_USFX_L01Pawn();
 
 	/** Offset from the ships location to spawn projectiles */
@@ -37,6 +69,10 @@ public:
 	/* The speed our ship moves around the level */
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
 	float MoveSpeed;
+
+	FORCEINLINE int GetMoveSpeed() const { return MoveSpeed; }
+
+	FORCEINLINE void SetMoveSpeed(int _MoveSpeed) { MoveSpeed = _MoveSpeed; }
 
 	/** Sound to play each time we fire */
 	UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)

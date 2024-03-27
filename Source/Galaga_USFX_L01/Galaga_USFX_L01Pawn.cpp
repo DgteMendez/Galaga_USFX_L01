@@ -18,6 +18,64 @@ const FName AGalaga_USFX_L01Pawn::MoveRightBinding("MoveRight");
 const FName AGalaga_USFX_L01Pawn::FireForwardBinding("FireForward");
 const FName AGalaga_USFX_L01Pawn::FireRightBinding("FireRight");
 
+void AGalaga_USFX_L01Pawn::DropItem()
+{
+	if (MyInventoryEnergy->CurrentInventoryEnergy.Num() == 0)
+	{
+		return;
+	}
+	AInventoryActor* Item = MyInventoryEnergy->CurrentInventoryEnergy.Last();
+	MyInventoryEnergy->RemoveFromInventory(Item);
+	FVector ItemOrigin;
+	FVector ItemBounds;
+	Item->GetActorBounds(false, ItemOrigin, ItemBounds);
+	FTransform PutDownLocation = GetTransform() + FTransform(RootComponent->GetForwardVector() * ItemBounds.GetMax());
+	Item->PutDown(PutDownLocation);
+}
+
+void AGalaga_USFX_L01Pawn::TakeItem(AInventoryActor* InventoryItemEnergy)
+{
+	InventoryItemEnergy->SetOwner(this);  // Establecer el pawn como propietario
+	InventoryItemEnergy->PickUp();
+	MyInventoryEnergy->AddToInventory(InventoryItemEnergy);
+}
+
+void AGalaga_USFX_L01Pawn::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
+{
+	AInventoryActor* InventoryItem = Cast<AInventoryActor>(Other);
+	if (InventoryItem != nullptr)
+	{
+		TakeItem(InventoryItem);
+	}
+
+/*	AInventoryGun* InventoryItem = Cast<AInventoryGun>(Other);
+	if (InventoryItem != nullptr) 
+	{
+		TakeItem(InventoryItem);
+	}*/
+}
+
+void AGalaga_USFX_L01Pawn::DropItemGun()
+{
+	if (MyInventoryGun->CurrentInventoryGun.Num() == 0)
+	{
+		return;
+	}
+	AInventoryGun* Item = MyInventoryGun->CurrentInventoryGun.Last();
+	MyInventoryGun->RemoveFromInventoryGun(Item);
+	FVector ItemOrigin;
+	FVector ItemBounds;
+	Item->GetActorBounds(false, ItemOrigin, ItemBounds);
+	FTransform PutDownLocation = GetTransform() + FTransform(RootComponent->GetForwardVector() * ItemBounds.GetMax());
+	Item->PutDown(PutDownLocation);
+}
+
+void AGalaga_USFX_L01Pawn::TakeItemGun(AInventoryGun* InventoryItemGun)
+{
+	InventoryItemGun->PickUp();
+	MyInventoryGun->AddToInventoryGun(InventoryItemGun);
+}
+
 AGalaga_USFX_L01Pawn::AGalaga_USFX_L01Pawn()
 {	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
@@ -50,6 +108,8 @@ AGalaga_USFX_L01Pawn::AGalaga_USFX_L01Pawn()
 	GunOffset = FVector(90.f, 0.f, 0.f);
 	FireRate = 0.1f;
 	bCanFire = true;
+
+	MyInventoryEnergy = CreateDefaultSubobject<UInventoryComponent>("MyInventory");
 }
 
 void AGalaga_USFX_L01Pawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -61,6 +121,8 @@ void AGalaga_USFX_L01Pawn::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindAxis(MoveRightBinding);
 	PlayerInputComponent->BindAxis(FireForwardBinding);
 	PlayerInputComponent->BindAxis(FireRightBinding);
+
+	PlayerInputComponent->BindAction("AbrirInventario", EInputEvent::IE_Pressed, this, &AGalaga_USFX_L01Pawn::DropItem);
 }
 
 void AGalaga_USFX_L01Pawn::Tick(float DeltaSeconds)

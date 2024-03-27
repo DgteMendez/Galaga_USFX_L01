@@ -27,6 +27,7 @@ class ANaveEnemigaReabastecimientoE1;
 class ANaveEnemigaReabastecimientoH2;
 class ANaveEnemigaNodrizaC1;
 class ANaveEnemigaNodrizaC2;
+class AInventoryActor;
 
 UCLASS(MinimalAPI)
 class AGalaga_USFX_L01GameMode : public AGameModeBase
@@ -34,13 +35,16 @@ class AGalaga_USFX_L01GameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	
 	AGalaga_USFX_L01GameMode();
 
 protected:
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
+	
 	ANaveEnemiga* NaveEnemiga01;
 	AAlienigenaEnemigo* AlienigenaEnemigo01;
 	AProyectil* Proyectil01;
@@ -62,6 +66,7 @@ public:
 	ANaveEnemigaReabastecimientoH2* NaveEnemigaReabastecimientoH202;
 	ANaveEnemigaNodrizaC1* NaveEnemigaNodrizaC102;
 	ANaveEnemigaNodrizaC2* NaveEnemigaNodrizaC202;
+	AInventoryActor* InventoryActor01;
 
 public:
 
@@ -73,11 +78,13 @@ public:
 	TArray<ANaveEnemigaNodriza*> NavesEnemigasNodrizas;
 
 private:
+	
 	float tiempoTranscurrido = 0;
 
 	virtual void Tick(float DeltaTime)override;
 
 public:
-	TMap<FVector, AActor*> Obstaculos;
+	
+	TMap<FVector, AActor*> TMObstaculosYAlienigenas;
 
 };
