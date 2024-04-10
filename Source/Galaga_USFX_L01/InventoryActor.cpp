@@ -32,7 +32,7 @@ void AInventoryActor::PickUp()
 	SetActorTickEnabled(false);
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
-	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("EL item se agrego al inventario")));
+	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Se agrego una mejora de energia al inventario")));
 }
 
 void AInventoryActor::PutDown(FTransform TargetLocation)

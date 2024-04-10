@@ -49,6 +49,8 @@ public:
 	FORCEINLINE void SetPosicionZ(float _posicionZ) { posicionZ = _posicionZ; }
 	FORCEINLINE void SetNombre(FString _nombre) { nombre = _nombre; }
 
+	bool visibilidad = true;
+
 public:	
 	// Sets default values for this actor's properties
 	ANaveEnemiga();

@@ -8,6 +8,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/PlayerInput.h"
 #include "Engine/CollisionProfile.h"
 #include "Engine/StaticMesh.h"
 #include "Kismet/GameplayStatics.h"
@@ -15,8 +16,15 @@
 
 const FName AGalaga_USFX_L01Pawn::MoveForwardBinding("MoveForward");
 const FName AGalaga_USFX_L01Pawn::MoveRightBinding("MoveRight");
+
+const FName AGalaga_USFX_L01Pawn::MoveDiagonalNOBinding("MoveDiagonalNO");
+const FName AGalaga_USFX_L01Pawn::MoveDiagonalNEBinding("MoveDiagonalNE");
+const FName AGalaga_USFX_L01Pawn::MoveDiagonalSOBinding("MoveDiagonalSO");
+const FName AGalaga_USFX_L01Pawn::MoveDiagonalSEBinding("MoveDiagonalSE");
+
 const FName AGalaga_USFX_L01Pawn::FireForwardBinding("FireForward");
 const FName AGalaga_USFX_L01Pawn::FireRightBinding("FireRight");
+
 
 void AGalaga_USFX_L01Pawn::DropItem()
 {
@@ -48,21 +56,21 @@ void AGalaga_USFX_L01Pawn::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other,
 		TakeItem(InventoryItem);
 	}
 
-/*	AInventoryGun* InventoryItem = Cast<AInventoryGun>(Other);
-	if (InventoryItem != nullptr) 
+	AInventoryGun* InventoryItemGun = Cast<AInventoryGun>(Other);
+	if (InventoryItemGun != nullptr) 
 	{
-		TakeItem(InventoryItem);
-	}*/
+		TakeItemGun(InventoryItemGun);
+	}
 }
 
 void AGalaga_USFX_L01Pawn::DropItemGun()
 {
-	if (MyInventoryGun->CurrentInventoryGun.Num() == 0)
+	if (MyInventoryEnergy->CurrentInventoryGun.Num() == 0)
 	{
 		return;
 	}
-	AInventoryGun* Item = MyInventoryGun->CurrentInventoryGun.Last();
-	MyInventoryGun->RemoveFromInventoryGun(Item);
+	AInventoryGun* Item = MyInventoryEnergy->CurrentInventoryGun.Last();
+	MyInventoryEnergy->RemoveFromInventoryGun(Item);
 	FVector ItemOrigin;
 	FVector ItemBounds;
 	Item->GetActorBounds(false, ItemOrigin, ItemBounds);
@@ -73,7 +81,7 @@ void AGalaga_USFX_L01Pawn::DropItemGun()
 void AGalaga_USFX_L01Pawn::TakeItemGun(AInventoryGun* InventoryItemGun)
 {
 	InventoryItemGun->PickUp();
-	MyInventoryGun->AddToInventoryGun(InventoryItemGun);
+	MyInventoryEnergy->AddToInventoryGun(InventoryItemGun);
 }
 
 AGalaga_USFX_L01Pawn::AGalaga_USFX_L01Pawn()
@@ -119,10 +127,68 @@ void AGalaga_USFX_L01Pawn::SetupPlayerInputComponent(class UInputComponent* Play
 	// set up gameplay key bindings
 	PlayerInputComponent->BindAxis(MoveForwardBinding);
 	PlayerInputComponent->BindAxis(MoveRightBinding);
+	
 	PlayerInputComponent->BindAxis(FireForwardBinding);
 	PlayerInputComponent->BindAxis(FireRightBinding);
+	
+	FInputAxisKeyMapping DiagonalNO("MoveDiagonalUpLeft", EKeys::E, 1);
+	FInputAxisKeyMapping DiagonalNE("MoveDiagonalUpLeft", EKeys::Q, 1);
+	FInputAxisKeyMapping DiagonalSO("MoveDiagonalUpLeft", EKeys::Z, 1);
+	FInputAxisKeyMapping DiagonalSE("MoveDiagonalUpLeft", EKeys::C, 1);
+
+	UPlayerInput::AddEngineDefinedAxisMapping(DiagonalNO);
+	UPlayerInput::AddEngineDefinedAxisMapping(DiagonalNE);
+	UPlayerInput::AddEngineDefinedAxisMapping(DiagonalSO);
+	UPlayerInput::AddEngineDefinedAxisMapping(DiagonalSE);
+
+	PlayerInputComponent->BindAxis("MoveDiagonalNO", this, &AGalaga_USFX_L01Pawn::MoveDiagonalNO);
+	PlayerInputComponent->BindAxis("MoveDiagonalNE", this, &AGalaga_USFX_L01Pawn::MoveDiagonalNE);
+	PlayerInputComponent->BindAxis("MoveDiagonalSO", this, &AGalaga_USFX_L01Pawn::MoveDiagonalSO);
+	PlayerInputComponent->BindAxis("MoveDiagonalSE", this, &AGalaga_USFX_L01Pawn::MoveDiagonalSE);
 
 	PlayerInputComponent->BindAction("AbrirInventario", EInputEvent::IE_Pressed, this, &AGalaga_USFX_L01Pawn::DropItem);
+	PlayerInputComponent->BindAction("AbrirInventario", EInputEvent::IE_Pressed, this, &AGalaga_USFX_L01Pawn::DropItemGun);
+}
+
+void AGalaga_USFX_L01Pawn::MoveDiagonalNO(float Value)
+{
+	const FVector Movement = FVector(1.0f, 1.0f, 0.f) * MoveSpeed * Value * GetWorld()->GetDeltaSeconds();
+	MoveActor(Movement);
+}
+
+void AGalaga_USFX_L01Pawn::MoveDiagonalNE(float Value)
+{
+	const FVector Movement = FVector(1.0f, -1.0f, 0.f) * MoveSpeed * Value * GetWorld()->GetDeltaSeconds();
+	MoveActor(Movement);
+}
+
+void AGalaga_USFX_L01Pawn::MoveDiagonalSO(float Value)
+{
+	const FVector Movement = FVector(-1.0f, 1.0f, 0.f) * MoveSpeed * Value * GetWorld()->GetDeltaSeconds();
+	MoveActor(Movement);
+}
+
+void AGalaga_USFX_L01Pawn::MoveDiagonalSE(float Value)
+{
+	const FVector Movement = FVector(-1.0f, -1.0f, 0.f) * MoveSpeed * Value * GetWorld()->GetDeltaSeconds();
+	MoveActor(Movement);
+}
+
+void AGalaga_USFX_L01Pawn::MoveActor(const FVector& Movement)
+{
+	if (Movement.SizeSquared() > 0.0f)
+	{
+		const FRotator NewRotation = Movement.Rotation();
+		FHitResult Hit(1.f);
+		RootComponent->MoveComponent(Movement, NewRotation, true, &Hit);
+
+		if (Hit.IsValidBlockingHit())
+		{
+			const FVector Normal2D = Hit.Normal.GetSafeNormal2D();
+			const FVector Deflection = FVector::VectorPlaneProject(Movement, Normal2D) * (1.f - Hit.Time);
+			RootComponent->MoveComponent(Deflection, NewRotation, true);
+		}
+	}
 }
 
 void AGalaga_USFX_L01Pawn::Tick(float DeltaSeconds)
@@ -198,4 +264,3 @@ void AGalaga_USFX_L01Pawn::ShotTimerExpired()
 {
 	bCanFire = true;
 }
-

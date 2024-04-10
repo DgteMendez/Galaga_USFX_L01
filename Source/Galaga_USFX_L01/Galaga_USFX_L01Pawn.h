@@ -46,8 +46,8 @@ public:
 		Hit) override;
 
 	//Inventario Armas
-	UPROPERTY()
-	UInventoryComponent* MyInventoryGun;
+	//UPROPERTY()
+	//AInventoryGun* MyInventoryGun;
 
 	UFUNCTION()
 	void DropItemGun();
@@ -92,6 +92,24 @@ public:
 	// Static names for axis bindings
 	static const FName MoveForwardBinding;
 	static const FName MoveRightBinding;
+
+	static const FName MoveDiagonalNOBinding;
+	static const FName MoveDiagonalNEBinding;
+	static const FName MoveDiagonalSOBinding;
+	static const FName MoveDiagonalSEBinding;
+
+	/*static const FName MoveDiagonalNOBinding;
+	static const FName MoveDiagonalNEBinding;
+	static const FName MoveDiagonalSOBinding;
+	static const FName MoveDiagonalSEBinding;*/
+
+	void MoveDiagonalNO(float Value);
+	void MoveDiagonalNE(float Value);
+	void MoveDiagonalSO(float Value);
+	void MoveDiagonalSE(float Value);
+
+	void MoveActor(const FVector& Movement);
+
 	static const FName FireForwardBinding;
 	static const FName FireRightBinding;
 

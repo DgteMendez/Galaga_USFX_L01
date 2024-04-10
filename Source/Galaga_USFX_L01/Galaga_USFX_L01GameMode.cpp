@@ -23,6 +23,7 @@
 #include "NaveEnemigaNodrizaC1.h"
 #include "NaveEnemigaNodrizaC2.h"
 #include "InventoryActor.h"
+#include "InventoryGun.h"
 
 AGalaga_USFX_L01GameMode::AGalaga_USFX_L01GameMode()
 {
@@ -36,8 +37,8 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//FVector ubicacionNave = FVector(-900.0f, 50.0f, 250.0f);
-	//FRotator rotacionNave = FRotator(0.0f, 0.0f, 0.0f);
+	/*FVector ubicacionNave = FVector(-900.0f, 50.0f, 250.0f);
+	FRotator rotacionNave = FRotator(0.0f, 0.0f, 0.0f);
 
 	FVector ubicacionAlienigena = FVector(1200.0f, 1300.0f, 250.0f);
 	FRotator rotacionAlienigena = FRotator(0.0f, 0.0f, 0.0f);
@@ -51,7 +52,7 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	FVector ubicacionNaveAmiga = FVector(-1200.0f, 500.0f, 199.0f);
 	FRotator rotacionNaveAmiga = FRotator(0.0f, 0.0f, 0.0f);
 	
-	FVector ubicacionObstaculo = FVector(1200.0f, 1600.0f, 250.0f);
+	FVector ubicacionObstaculo = FVector(800.0f, -1600.0f, 250.0f);
 	FRotator rotacionObstaculo = FRotator(0.0f, 0.0f, 0.0f);
 	
 	FVector ubicacionNaveEnemigaCaza = FVector(600.0f, 0.0f, 200.0f);
@@ -97,7 +98,7 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	FRotator rotacionNaveEnemigaNodrizaC1 = FRotator(0.0f, 0.0f, 0.0f);
 
 	FVector ubicacionNaveEnemigaNodrizaC2 = FVector(600.0f, 300.0f, 200.0f);
-	FRotator rotacionNaveEnemigaNodrizaC2 = FRotator(0.0f, 0.0f, 0.0f);
+	FRotator rotacionNaveEnemigaNodrizaC2 = FRotator(0.0f, 0.0f, 0.0f);*/
 
 	FVector ubicacionInicioNavesEnemigasCaza=FVector(600.0f, -600.0f, 200.0f);
 	FRotator rotacionInicioNavesEnemigasCaza = FRotator(0.0f, 180.0f, 0.0f);
@@ -114,15 +115,17 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	FVector ubicacionInicioNavesEnemigasNodriza = FVector(800.0f, -1400.0f, 200.0f);
 	FRotator rotacionInicioNavesEnemigasNodriza = FRotator(0.0f, 180.0f, 0.0f);
 
-	FVector ubicacionInventoryActor = FVector(-900.0f, 50.0f, 250.0f);
+	FVector ubicacionInventoryActor = FVector(-1800.0f, -1800.0f, 250.0f);
 	FRotator rotacionInventoryActor = FRotator(0.0f, 0.0f, 0.0f);
+
+	FVector ubicacionInventoryGun = FVector(-1800.0f, 1800.0f, 250.0f);
+	FRotator rotacionInventoryGun = FRotator(0.0f, 0.0f, 0.0f);
 
 	UWorld* const World = GetWorld();
 	if (World != nullptr)
 	{
 
 		for (int i = 0; i < 6; i++) {
-
 
 			ubicacionInicioNavesEnemigasCaza = ubicacionInicioNavesEnemigasCaza + FVector(0.0f, 200.0f, 0.0f);
 			ANaveEnemigaCaza* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaCaza>(ubicacionInicioNavesEnemigasCaza, rotacionInicioNavesEnemigasCaza);
@@ -132,7 +135,6 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 		}
 
 		for (int j = 0; j < 6; j++) {
-
 
 			ubicacionInicioNavesEnemigasTranporte = ubicacionInicioNavesEnemigasTranporte + FVector(0.0f, 200.0f, 0.0f);
 			ANaveEnemigaTranporte* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaTranporte>(ubicacionInicioNavesEnemigasTranporte, rotacionInicioNavesEnemigasTranporte);
@@ -170,84 +172,118 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 
 		//TMap
 
-		for (int i = 0; i < 1; i++) {
+		/*for (int i = 0; i < 1; i++) {
 
 			FVector SpawnLocation = FVector((-600.0f), FMath::RandRange(-1000.0f, 1000.0f), 200.0f);
 			AObstaculo* NewObstaculo = GetWorld()->SpawnActor<AObstaculo>(AObstaculo::StaticClass(), SpawnLocation, FRotator::ZeroRotator);
 			TMObstaculosYAlienigenas.Add(SpawnLocation, NewObstaculo);
 
-		}
+		}*/
 
 		InventoryActor01 = World->SpawnActor<AInventoryActor>(ubicacionInventoryActor, rotacionInventoryActor);
 
-		//NaveEnemiga01 = World->SpawnActor<ANaveEnemiga>(ubicacionNave, rotacionNave);
+		InventoryGun01 = World->SpawnActor<AInventoryGun>(ubicacionInventoryGun, rotacionInventoryGun);
 
-		//AlienigenaEnemigo01 = World->SpawnActor<AAlienigenaEnemigo>(ubicacionAlienigena, rotacionAlienigena);
-		//Proyectil01 = World->SpawnActor<AProyectil>(ubicacionProyectil, rotacionProyectil);
-		//Escenario01 = World->SpawnActor<AEscenario>(ubicacionEscenario, rotacionEscenario);
-		//NaveAmiga01 = World->SpawnActor<ANaveAmiga>(ubicacionNaveAmiga, rotacionNaveAmiga);
+		/*NaveEnemiga01 = World->SpawnActor<ANaveEnemiga>(ubicacionNave, rotacionNave);
+
+		AlienigenaEnemigo01 = World->SpawnActor<AAlienigenaEnemigo>(ubicacionAlienigena, rotacionAlienigena);
+		Proyectil01 = World->SpawnActor<AProyectil>(ubicacionProyectil, rotacionProyectil);
+		Escenario01 = World->SpawnActor<AEscenario>(ubicacionEscenario, rotacionEscenario);
+		NaveAmiga01 = World->SpawnActor<ANaveAmiga>(ubicacionNaveAmiga, rotacionNaveAmiga);
 		
-		//Obstaculo01 = World->SpawnActor<AObstaculo>(ubicacionObstaculo, rotacionObstaculo);
+		Obstaculo01 = World->SpawnActor<AObstaculo>(ubicacionObstaculo, rotacionObstaculo);
 
-		//NaveEnemigaCaza01 = World->SpawnActor<ANaveEnemigaCaza>(ubicacionNaveEnemigaCaza, rotacionNaveEnemigaCaza);
-		//NaveEnemigaCaza01->SetVelocidad(-400);
+		NaveEnemigaCaza01 = World->SpawnActor<ANaveEnemigaCaza>(ubicacionNaveEnemigaCaza, rotacionNaveEnemigaCaza);
+		NaveEnemigaCaza01->SetVelocidad(-400);
 
-		//NaveEnemigaTranporte01 = World->SpawnActor<ANaveEnemigaTranporte>(ubicacionNaveEnemigaTranporte, rotacionNaveEnemigaTranporte);
-		//NaveEnemigaTranporte01->SetVelocidad(-100);
+		NaveEnemigaTranporte01 = World->SpawnActor<ANaveEnemigaTranporte>(ubicacionNaveEnemigaTranporte, rotacionNaveEnemigaTranporte);
+		NaveEnemigaTranporte01->SetVelocidad(-100);
 
-		//NaveEnemigaEspia01 = World->SpawnActor<ANaveEnemigaEspia>(ubicacionNaveEnemigaEspia, rotacionNaveEnemigaEspia);
-		//NaveEnemigaEspia01->SetVelocidad(-300);
+		NaveEnemigaEspia01 = World->SpawnActor<ANaveEnemigaEspia>(ubicacionNaveEnemigaEspia, rotacionNaveEnemigaEspia);
+		NaveEnemigaEspia01->SetVelocidad(-300);
 
-		//NaveEnemigaReabastecimiento01 = World->SpawnActor<ANaveEnemigaReabastecimiento>(ubicacionNaveEnemigaReabastecimiento, rotacionNaveEnemigaReabastecimiento);
-		//NaveEnemigaReabastecimiento01->SetVelocidad(-200);
+		NaveEnemigaReabastecimiento01 = World->SpawnActor<ANaveEnemigaReabastecimiento>(ubicacionNaveEnemigaReabastecimiento, rotacionNaveEnemigaReabastecimiento);
+		NaveEnemigaReabastecimiento01->SetVelocidad(-200);
 
-		//NaveEnemigaNodriza01 = World->SpawnActor<ANaveEnemigaNodriza>(ubicacionNaveEnemigaNodriza, rotacionNaveEnemigaNodriza);
-		//NaveEnemigaNodriza01->SetVelocidad(-50);
+		NaveEnemigaNodriza01 = World->SpawnActor<ANaveEnemigaNodriza>(ubicacionNaveEnemigaNodriza, rotacionNaveEnemigaNodriza);
+		NaveEnemigaNodriza01->SetVelocidad(-50);
 
-		//NaveEnemigaCazaG102 = World->SpawnActor<ANaveEnemigaCazaG1>(ubicacionNaveEnemigaCazaG1, rotacionNaveEnemigaCazaG1);
-		//NaveEnemigaCazaG102->SetVelocidad(-200);
-		//NaveEnemigaCazaG202 = World->SpawnActor<ANaveEnemigaCazaG2>(ubicacionNaveEnemigaCazaG2, rotacionNaveEnemigaCazaG2);
-		//NaveEnemigaCazaG202->SetVelocidad(-200);
-		//
-		//NaveEnemigaEspiaI102 = World->SpawnActor<ANaveEnemigaEspiaI1>(ubicacionNaveEnemigaEspiaI1, rotacionNaveEnemigaEspiaI1);
-		//NaveEnemigaEspiaI102->SetVelocidad(-150);
-		//NaveEnemigaEspiaT202 = World->SpawnActor<ANaveEnemigaEspiaT2>(ubicacionNaveEnemigaEspiaT2, rotacionNaveEnemigaEspiaT2);
-		//NaveEnemigaEspiaT202->SetVelocidad(-150);
+		NaveEnemigaCazaG102 = World->SpawnActor<ANaveEnemigaCazaG1>(ubicacionNaveEnemigaCazaG1, rotacionNaveEnemigaCazaG1);
+		NaveEnemigaCazaG102->SetVelocidad(-200);
+		NaveEnemigaCazaG202 = World->SpawnActor<ANaveEnemigaCazaG2>(ubicacionNaveEnemigaCazaG2, rotacionNaveEnemigaCazaG2);
+		NaveEnemigaCazaG202->SetVelocidad(-200);
+		
+		NaveEnemigaEspiaI102 = World->SpawnActor<ANaveEnemigaEspiaI1>(ubicacionNaveEnemigaEspiaI1, rotacionNaveEnemigaEspiaI1);
+		NaveEnemigaEspiaI102->SetVelocidad(-150);
+		NaveEnemigaEspiaT202 = World->SpawnActor<ANaveEnemigaEspiaT2>(ubicacionNaveEnemigaEspiaT2, rotacionNaveEnemigaEspiaT2);
+		NaveEnemigaEspiaT202->SetVelocidad(-150);
 
-		//NaveEnemigaTranporteT102 = World->SpawnActor<ANaveEnemigaTranporteT1>(ubicacionNaveEnemigaTranporteT1, rotacionNaveEnemigaTranporteT1);
-		//NaveEnemigaTranporteT102->SetVelocidad(-50);
-		//NaveEnemigaTranporteT202 = World->SpawnActor<ANaveEnemigaTranporteT2>(ubicacionNaveEnemigaTranporteT2, rotacionNaveEnemigaTranporteT2);
-		//NaveEnemigaTranporteT202->SetVelocidad(-10);
-		//
-		//NaveEnemigaReabastecimientoE102 = World->SpawnActor<ANaveEnemigaReabastecimientoE1>(ubicacionNaveEnemigaReabastecimientoE1, rotacionNaveEnemigaReabastecimientoE1);
-		//NaveEnemigaReabastecimientoE102->SetVelocidad(-100);
-		//NaveEnemigaReabastecimientoH202 = World->SpawnActor<ANaveEnemigaReabastecimientoH2>(ubicacionNaveEnemigaReabastecimientoH2, rotacionNaveEnemigaReabastecimientoH2);
-		//NaveEnemigaReabastecimientoH202->SetVelocidad(-100);
-		//
-		//NaveEnemigaNodrizaC102 = World->SpawnActor<ANaveEnemigaNodrizaC1>(ubicacionNaveEnemigaNodrizaC1, rotacionNaveEnemigaNodrizaC1);
-		//NaveEnemigaNodrizaC102->SetVelocidad(-25);
-		//NaveEnemigaNodrizaC202 = World->SpawnActor<ANaveEnemigaNodrizaC2>(ubicacionNaveEnemigaNodrizaC2, rotacionNaveEnemigaNodrizaC2);
-		//NaveEnemigaNodrizaC202->SetVelocidad(-25);
+		NaveEnemigaTranporteT102 = World->SpawnActor<ANaveEnemigaTranporteT1>(ubicacionNaveEnemigaTranporteT1, rotacionNaveEnemigaTranporteT1);
+		NaveEnemigaTranporteT102->SetVelocidad(-50);
+		NaveEnemigaTranporteT202 = World->SpawnActor<ANaveEnemigaTranporteT2>(ubicacionNaveEnemigaTranporteT2, rotacionNaveEnemigaTranporteT2);
+		NaveEnemigaTranporteT202->SetVelocidad(-10);
+		
+		NaveEnemigaReabastecimientoE102 = World->SpawnActor<ANaveEnemigaReabastecimientoE1>(ubicacionNaveEnemigaReabastecimientoE1, rotacionNaveEnemigaReabastecimientoE1);
+		NaveEnemigaReabastecimientoE102->SetVelocidad(-100);
+		NaveEnemigaReabastecimientoH202 = World->SpawnActor<ANaveEnemigaReabastecimientoH2>(ubicacionNaveEnemigaReabastecimientoH2, rotacionNaveEnemigaReabastecimientoH2);
+		NaveEnemigaReabastecimientoH202->SetVelocidad(-100);
+		
+		NaveEnemigaNodrizaC102 = World->SpawnActor<ANaveEnemigaNodrizaC1>(ubicacionNaveEnemigaNodrizaC1, rotacionNaveEnemigaNodrizaC1);
+		NaveEnemigaNodrizaC102->SetVelocidad(-25);
+		NaveEnemigaNodrizaC202 = World->SpawnActor<ANaveEnemigaNodrizaC2>(ubicacionNaveEnemigaNodrizaC2, rotacionNaveEnemigaNodrizaC2);
+		NaveEnemigaNodrizaC202->SetVelocidad(-25);*/
 
 	}
 
 	//NaveEnemiga01->SetResistencia(100);
 }
 
-void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
+/*void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	tiempoTranscurrido++;
 	if (tiempoTranscurrido >= 50) {
 		int numeroEnemigo = FMath::RandRange(1, 5);
-	
 		NavesEnemigas[numeroEnemigo]->PrimaryActorTick.bCanEverTick = false;
-		NavesEnemigas[numeroEnemigo]->SetVelocidad(0);
+
+		NavesEnemigas[numeroEnemigo]->SetActorHiddenInGame(true);
+
+
 		if (GEngine) {
-			//GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Contenedores")));
+		}
+		tiempoTranscurrido = 0;
+	}
+}*/
+
+void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	tiempoTranscurrido++;
+
+	if (tiempoTranscurrido >= 600)
+	{
+		int numeroEnemigo = FMath::RandRange(1, 30);
+
+		// Si la nave enemiga está visible, hacerla invisible
+		if (NavesEnemigas[numeroEnemigo]->visibilidad)
+		{
+			NavesEnemigas[numeroEnemigo]->SetActorHiddenInGame(true);
+			NavesEnemigas[numeroEnemigo]->visibilidad = false;
+			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Se hizo invisible")));
+		}
+		// Si la nave enemiga está invisible, hacerla visible
+		else
+		{
+			NavesEnemigas[numeroEnemigo]->SetActorHiddenInGame(false);
+			NavesEnemigas[numeroEnemigo]->visibilidad = true;
+			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Se hizo visible")));
 		}
 
-		UE_LOG(LogTemp, Warning, TEXT("Hola"));
+		if (GEngine)
+		{
+		}
+
 		tiempoTranscurrido = 0;
 	}
 }

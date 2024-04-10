@@ -28,6 +28,7 @@ class ANaveEnemigaReabastecimientoH2;
 class ANaveEnemigaNodrizaC1;
 class ANaveEnemigaNodrizaC2;
 class AInventoryActor;
+class AInventoryGun;
 
 UCLASS(MinimalAPI)
 class AGalaga_USFX_L01GameMode : public AGameModeBase
@@ -67,6 +68,7 @@ public:
 	ANaveEnemigaNodrizaC1* NaveEnemigaNodrizaC102;
 	ANaveEnemigaNodrizaC2* NaveEnemigaNodrizaC202;
 	AInventoryActor* InventoryActor01;
+	AInventoryGun* InventoryGun01;
 
 public:
 

@@ -11,10 +11,17 @@
 AInventoryGun::AInventoryGun()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	auto MeshAsset = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
-			if (MeshAsset.Object != nullptr)
+	
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> InventoryGun(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Cone.Shape_Cone'"));
+	// Create the mesh component
+	InventoryGunMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("InventoryGun"));
+	//InventoryActorMesh->SetupAttachment(RootComponent);
+	InventoryGunMesh->SetStaticMesh(InventoryGun.Object);
+	RootComponent = InventoryGunMesh;
+
+			if (InventoryGun.Object != nullptr)
 			{
-				GetStaticMeshComponent()->SetStaticMesh(MeshAsset.Object);
+				GetStaticMeshComponent()->SetStaticMesh(InventoryGun.Object);
 				GetStaticMeshComponent()->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 			}
 	GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);
@@ -26,6 +33,7 @@ void AInventoryGun::PickUp()
 	SetActorTickEnabled(false);
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
+	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green, TEXT("Se agrego una mejora de arma al inventario"));
 }
 
 void AInventoryGun::PutDown(FTransform TargetLocation)
@@ -34,4 +42,5 @@ void AInventoryGun::PutDown(FTransform TargetLocation)
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
 	SetActorLocation(TargetLocation.GetLocation());
+	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green, TEXT("Mejora de cadencia de disparo"));
 }
