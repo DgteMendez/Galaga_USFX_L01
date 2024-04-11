@@ -82,6 +82,8 @@ public:
 private:
 	
 	float tiempoTranscurrido = 0;
+	float tiempoVisible = 0;
+	float tiempoInvisible = 0;
 
 	virtual void Tick(float DeltaTime)override;
 

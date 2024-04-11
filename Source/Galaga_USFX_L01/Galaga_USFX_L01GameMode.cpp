@@ -24,6 +24,7 @@
 #include "NaveEnemigaNodrizaC2.h"
 #include "InventoryActor.h"
 #include "InventoryGun.h"
+#include "InvisibilidadComponente.h"
 
 AGalaga_USFX_L01GameMode::AGalaga_USFX_L01GameMode()
 {
@@ -31,6 +32,14 @@ AGalaga_USFX_L01GameMode::AGalaga_USFX_L01GameMode()
 	// set default pawn class to our character class
 	DefaultPawnClass = AGalaga_USFX_L01Pawn::StaticClass();
 	NaveEnemiga01 = nullptr;
+
+	for (AActor* NaveEnemiga : NavesEnemigas)
+	{
+		UInvisibilidadComponente* InvisibilidadComponente = NewObject<UInvisibilidadComponente>(NaveEnemiga, TEXT("InvisibleComponent"));
+		InvisibilidadComponente->RegisterComponent();
+		NaveEnemiga->AddOwnedComponent(InvisibilidadComponente);
+	}
+	
 }
 
 void AGalaga_USFX_L01GameMode::BeginPlay()
@@ -170,6 +179,31 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 
 		}
 
+		/*NavesEnemigas[1]->SetActorHiddenInGame(true);
+		NavesEnemigas[1]->visibilidad = false;
+		NavesEnemigas[2]->SetActorHiddenInGame(true);
+		NavesEnemigas[2]->visibilidad = false;
+		NavesEnemigas[4]->SetActorHiddenInGame(true);
+		NavesEnemigas[4]->visibilidad = false;
+		NavesEnemigas[6]->SetActorHiddenInGame(true);
+		NavesEnemigas[6]->visibilidad = false;
+		NavesEnemigas[8]->SetActorHiddenInGame(true);
+		NavesEnemigas[8]->visibilidad = false;
+		NavesEnemigas[10]->SetActorHiddenInGame(true);
+		NavesEnemigas[10]->visibilidad = false;
+		NavesEnemigas[12]->SetActorHiddenInGame(true);
+		NavesEnemigas[12]->visibilidad = false;
+		NavesEnemigas[14]->SetActorHiddenInGame(true);
+		NavesEnemigas[14]->visibilidad = false;
+		NavesEnemigas[16]->SetActorHiddenInGame(true);
+		NavesEnemigas[16]->visibilidad = false;
+		NavesEnemigas[18]->SetActorHiddenInGame(true);
+		NavesEnemigas[18]->visibilidad = false;
+		NavesEnemigas[20]->SetActorHiddenInGame(true);
+		NavesEnemigas[20]->visibilidad = false;
+		NavesEnemigas[22]->SetActorHiddenInGame(true);
+		NavesEnemigas[22]->visibilidad = false;*/
+
 		//TMap
 
 		/*for (int i = 0; i < 1; i++) {
@@ -255,35 +289,154 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	}
 }*/
 
-void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
+/*void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 	tiempoTranscurrido++;
 
-	if (tiempoTranscurrido >= 600)
+	if (tiempoTranscurrido >= 200)
 	{
-		int numeroEnemigo = FMath::RandRange(1, 30);
+		for (int i = 0; i < 5; i++) {
 
-		// Si la nave enemiga está visible, hacerla invisible
-		if (NavesEnemigas[numeroEnemigo]->visibilidad)
-		{
-			NavesEnemigas[numeroEnemigo]->SetActorHiddenInGame(true);
-			NavesEnemigas[numeroEnemigo]->visibilidad = false;
-			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Se hizo invisible")));
-		}
-		// Si la nave enemiga está invisible, hacerla visible
-		else
-		{
-			NavesEnemigas[numeroEnemigo]->SetActorHiddenInGame(false);
-			NavesEnemigas[numeroEnemigo]->visibilidad = true;
-			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Se hizo visible")));
+			int numeroEnemigo = FMath::RandRange(1, 20);
+
+			if (NavesEnemigas[numeroEnemigo]->visibilidad)
+			{
+				tiempoInvisible++;
+
+				if (tiempoInvisible >= 0)
+				{
+					NavesEnemigas[numeroEnemigo]->SetActorHiddenInGame(true);
+					NavesEnemigas[numeroEnemigo]->visibilidad = false;
+					tiempoVisible = 0;
+					GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("invisible"));
+				}
+			}
+			else
+			{
+				tiempoVisible++;
+
+				if (tiempoVisible >= 0)
+				{
+					NavesEnemigas[numeroEnemigo]->SetActorHiddenInGame(false);
+					NavesEnemigas[numeroEnemigo]->visibilidad = true;
+					tiempoInvisible = 0;
+					GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("visible"));
+				}
+			}
+
+			tiempoTranscurrido = 0;
+
 		}
 
-		if (GEngine)
+	}
+}*/
+
+/*void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	tiempoTranscurrido++;
+
+	if (tiempoTranscurrido >= 50)
+	{
+		// Lista para almacenar las naves que cambiarán de visibilidad
+		TArray<int> navesACambiar;
+
+		// Elegir aleatoriamente 5 naves para cambiar su visibilidad
+		while (navesACambiar.Num() < 5)
 		{
+			int numeroEnemigo = FMath::RandRange(1, 20);
+
+			// Verificar si la nave ya ha sido seleccionada
+			if (!navesACambiar.Contains(numeroEnemigo))
+			{
+				navesACambiar.Add(numeroEnemigo);
+			}
+		}
+
+		// Cambiar la visibilidad de las 5 naves seleccionadas
+		for (int i = 0; i < navesACambiar.Num(); i++)
+		{
+			int numeroEnemigo = navesACambiar[i];
+
+			if (NavesEnemigas[numeroEnemigo]->visibilidad)
+			{
+				tiempoInvisible++;
+
+				if (tiempoInvisible >= 10)
+				{
+					NavesEnemigas[numeroEnemigo]->SetActorHiddenInGame(true);
+					NavesEnemigas[numeroEnemigo]->visibilidad = false;
+					tiempoInvisible = 0;
+					GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, FString::Printf(TEXT("Nave %d invisible"), numeroEnemigo));
+				}
+			}
+			else
+			{
+				tiempoVisible++;
+
+				if (tiempoVisible >= 10)
+				{
+					NavesEnemigas[numeroEnemigo]->SetActorHiddenInGame(false);
+					NavesEnemigas[numeroEnemigo]->visibilidad = true;
+					tiempoVisible = 0;
+					GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, FString::Printf(TEXT("Nave %d visible"), numeroEnemigo));
+				}
+			}
 		}
 
 		tiempoTranscurrido = 0;
+	}
+}*/
+
+void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
+{
+	
+	Super::Tick(DeltaTime);
+
+	tiempoTranscurrido++;
+
+	if (tiempoTranscurrido >= 500)
+	{
+		// Lista para almacenar las naves que cambiarán de visibilidad
+		TArray<int> navesACambiar;
+
+		// Elegir aleatoriamente 5 naves para cambiar su visibilidad
+		while (navesACambiar.Num() < 5)
+		{
+			int numeroEnemigo = FMath::RandRange(0, 20);
+
+			// Verificar si la nave ya ha sido seleccionada
+			if (!navesACambiar.Contains(numeroEnemigo))
+			{
+				navesACambiar.Add(numeroEnemigo);
+			}
+		}
+
+		// Hacer invisibles las 5 naves seleccionadas
+		for (int i = 0; i < navesACambiar.Num(); i++)
+		{
+			int numeroEnemigo = navesACambiar[i];
+
+			NavesEnemigas[numeroEnemigo]->SetActorHiddenInGame(true);
+			NavesEnemigas[numeroEnemigo]->visibilidad = false;
+		}
+
+		tiempoTranscurrido = 0;
+	}
+
+	// Esperar un tiempo antes de hacer las naves visibles nuevamente
+	if (tiempoTranscurrido >= 400 && tiempoTranscurrido < 500)
+	{
+		for (int i = 0; i < NavesEnemigas.Num(); i++)
+		{
+			if (!NavesEnemigas[i]->visibilidad)
+			{
+				NavesEnemigas[i]->SetActorHiddenInGame(false);
+				NavesEnemigas[i]->visibilidad = true;
+			}
+		}
 	}
 }
