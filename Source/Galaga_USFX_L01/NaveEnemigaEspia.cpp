@@ -22,7 +22,7 @@ void ANaveEnemigaEspia::Tick(float DeltaTime)
 void ANaveEnemigaEspia::Mover(float DeltaTime)
 {
 	// Obtiene la posición actual del actor
-	FVector PosicionActual = GetActorLocation();
+	/*FVector PosicionActual = GetActorLocation();
 
 	// Genera nuevas coordenadas X e Y aleatorias
 	float DesplazamientoY = velocidad * DeltaTime;
@@ -36,7 +36,7 @@ void ANaveEnemigaEspia::Mover(float DeltaTime)
 	if (NuevaPosicion.Y > limiteDerechaY)
 	{
 		SetActorLocation(FVector(PosicionActual.X, 300.0f, PosicionActual.Z));
-	}
+	}*/
 }
 
 void ANaveEnemigaEspia::Disparar()

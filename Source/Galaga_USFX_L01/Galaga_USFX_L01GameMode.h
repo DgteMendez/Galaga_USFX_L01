@@ -29,6 +29,7 @@ class ANaveEnemigaNodrizaC1;
 class ANaveEnemigaNodrizaC2;
 class AInventoryActor;
 class AInventoryGun;
+class UInvisibilidadComponente;
 
 UCLASS(MinimalAPI)
 class AGalaga_USFX_L01GameMode : public AGameModeBase
@@ -73,17 +74,12 @@ public:
 public:
 
 	TArray<ANaveEnemiga*> NavesEnemigas;
-	TArray<ANaveEnemigaCaza*> NavesEnemigasCazas;
-	TArray<ANaveEnemigaTranporte*> NavesEnemigasTranportes;
-	TArray<ANaveEnemigaEspia*> NavesEnemigasEspias;
-	TArray<ANaveEnemigaReabastecimiento*> NavesEnemigasReabastecimientos;
-	TArray<ANaveEnemigaNodriza*> NavesEnemigasNodrizas;
+	TMap<float, ANaveEnemiga*> TMNavesEnemigas;
+	FString NombreNavesEnemigas;
 
 private:
 	
 	float tiempoTranscurrido = 0;
-	float tiempoVisible = 0;
-	float tiempoInvisible = 0;
 
 	virtual void Tick(float DeltaTime)override;
 

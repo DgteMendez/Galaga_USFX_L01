@@ -24,7 +24,7 @@ void ANaveEnemigaReabastecimiento::Tick(float DeltaTime)
 
 void ANaveEnemigaReabastecimiento::Mover(float DeltaTime)
 {
-	// Obtiene la posición actual del actor
+	/*// Obtiene la posición actual del actor
 	FVector PosicionActual = GetActorLocation();
 
 	// Genera nuevas coordenadas X e Y aleatorias
@@ -39,7 +39,7 @@ void ANaveEnemigaReabastecimiento::Mover(float DeltaTime)
 	if (NuevaPosicion.Y < limiteIzquierdaY)
 	{
 		SetActorLocation(FVector(PosicionActual.X, -300.0f, PosicionActual.Z));
-	}
+	}*/
 }
 
 void ANaveEnemigaReabastecimiento::Destruirse()

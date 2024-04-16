@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "NaveEnemiga.h"
+#include "MovimientoHorizontal.h"
 #include "NaveEnemigaTranporte.generated.h"
 
 /**
@@ -17,6 +18,7 @@ class GALAGA_USFX_L01_API ANaveEnemigaTranporte : public ANaveEnemiga
 private:
 
 	int almacenamiento;
+	int TiempoTranscurrido = 0;
 
 public:
 
@@ -25,6 +27,8 @@ public:
 	FORCEINLINE int GetAlmacenamiento() const { return almacenamiento; }
 
 	FORCEINLINE void SetAlmacenamiento(int _almacenamiento) { almacenamiento = _almacenamiento; }
+
+	UMovimientoHorizontal* MovimientoHorizontal;
 
 public:
 	virtual void Tick(float DeltaTime)override;

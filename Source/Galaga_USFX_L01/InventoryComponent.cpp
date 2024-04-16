@@ -33,7 +33,6 @@ void UInventoryComponent::RemoveFromInventoryGun(AInventoryGun* ActorToRemoveGun
 	CurrentInventoryGun.Remove(ActorToRemoveGun);
 }
 
-
 // Called when the game starts
 void UInventoryComponent::BeginPlay()
 {

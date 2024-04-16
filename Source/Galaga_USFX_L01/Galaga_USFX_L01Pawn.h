@@ -28,9 +28,14 @@ class AGalaga_USFX_L01Pawn : public APawn
 
 public:
 
+	//Soltar Bombas
+	void DropBomba();
+
 	//Inventario Energia
 	UPROPERTY()
 	UInventoryComponent* MyInventoryEnergy;
+	UInventoryComponent* MyInventoryGun;
+	UInventoryComponent* MyHumano;
 
 	UFUNCTION()
 	void DropItem();
@@ -38,23 +43,19 @@ public:
 	UFUNCTION()
 	void TakeItem(AInventoryActor* InventoryItemEnergy);
 
-	UFUNCTION()
-	virtual void NotifyHit(class UPrimitiveComponent* MyComp,
-		AActor* Other, class UPrimitiveComponent* OtherComp,
-		bool bSelfMoved, FVector HitLocation, FVector
-		HitNormal, FVector NormalImpulse, const FHitResult&
-		Hit) override;
-
 	//Inventario Armas
-	//UPROPERTY()
-	//AInventoryGun* MyInventoryGun;
-
 	UFUNCTION()
 	void DropItemGun();
 
 	UFUNCTION()
 	void TakeItemGun(AInventoryGun* InventoryItemGun);
 
+	UFUNCTION()
+	virtual void NotifyHit(class UPrimitiveComponent* MyComp,
+		AActor* Other, class UPrimitiveComponent* OtherComp,
+		bool bSelfMoved, FVector HitLocation, FVector
+		HitNormal, FVector NormalImpulse, const FHitResult&
+		Hit) override;
 
 	AGalaga_USFX_L01Pawn();
 
@@ -65,6 +66,10 @@ public:
 	/* How fast the weapon will fire */
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
 	float FireRate;
+
+	FORCEINLINE float GetFireRate() const { return FireRate; }
+
+	FORCEINLINE void SetFireRate(float _FireRate) { FireRate = _FireRate; }
 
 	/* The speed our ship moves around the level */
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
@@ -98,11 +103,6 @@ public:
 	static const FName MoveDiagonalSOBinding;
 	static const FName MoveDiagonalSEBinding;
 
-	/*static const FName MoveDiagonalNOBinding;
-	static const FName MoveDiagonalNEBinding;
-	static const FName MoveDiagonalSOBinding;
-	static const FName MoveDiagonalSEBinding;*/
-
 	void MoveDiagonalNO(float Value);
 	void MoveDiagonalNE(float Value);
 	void MoveDiagonalSO(float Value);
@@ -128,5 +128,6 @@ public:
 	FORCEINLINE class UCameraComponent* GetCameraComponent() const { return CameraComponent; }
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+
 };
 

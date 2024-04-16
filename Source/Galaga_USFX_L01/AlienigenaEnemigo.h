@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MovimientoHorizontal.h"
 #include "AlienigenaEnemigo.generated.h"
 
 class UStaticMeshComponent;
@@ -41,6 +42,7 @@ public:
 	FORCEINLINE void SetPosicionZ(float _posicionZ) { posicionZ = _posicionZ; }
 	FORCEINLINE void SetNombre(FString _nombre) { nombre = _nombre; }
 
+	UMovimientoHorizontal* MovimientoHorizontal;
 public:	
 	// Sets default values for this actor's properties
 	AAlienigenaEnemigo();

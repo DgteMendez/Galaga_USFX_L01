@@ -41,7 +41,6 @@ void AInventoryActor::PutDown(FTransform TargetLocation)
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
 	SetActorLocation(TargetLocation.GetLocation());
-	//GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Se retiro del inventario")));
 	// Obtener una referencia al pawn propietario
 	AGalaga_USFX_L01Pawn* OwnerPawn = Cast<AGalaga_USFX_L01Pawn>(GetOwner());
 

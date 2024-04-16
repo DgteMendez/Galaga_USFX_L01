@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
+#include "Bomba.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/PlayerInput.h"
 #include "Engine/CollisionProfile.h"
@@ -25,6 +26,16 @@ const FName AGalaga_USFX_L01Pawn::MoveDiagonalSEBinding("MoveDiagonalSE");
 const FName AGalaga_USFX_L01Pawn::FireForwardBinding("FireForward");
 const FName AGalaga_USFX_L01Pawn::FireRightBinding("FireRight");
 
+
+void AGalaga_USFX_L01Pawn::DropBomba()
+{
+	UWorld* const World = GetWorld();
+	if (World != nullptr)
+	{
+		FVector ubicacionBomba = GetActorLocation()+FVector(0.0f, 100.0f, 0.0f);
+		World->SpawnActor<ABomba>(ubicacionBomba, FRotator::ZeroRotator);
+	}
+}
 
 void AGalaga_USFX_L01Pawn::DropItem()
 {
@@ -65,12 +76,12 @@ void AGalaga_USFX_L01Pawn::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other,
 
 void AGalaga_USFX_L01Pawn::DropItemGun()
 {
-	if (MyInventoryEnergy->CurrentInventoryGun.Num() == 0)
+	if (MyInventoryGun->CurrentInventoryGun.Num() == 0)
 	{
 		return;
 	}
-	AInventoryGun* Item = MyInventoryEnergy->CurrentInventoryGun.Last();
-	MyInventoryEnergy->RemoveFromInventoryGun(Item);
+	AInventoryGun* Item = MyInventoryGun->CurrentInventoryGun.Last();
+	MyInventoryGun->RemoveFromInventoryGun(Item);
 	FVector ItemOrigin;
 	FVector ItemBounds;
 	Item->GetActorBounds(false, ItemOrigin, ItemBounds);
@@ -81,7 +92,7 @@ void AGalaga_USFX_L01Pawn::DropItemGun()
 void AGalaga_USFX_L01Pawn::TakeItemGun(AInventoryGun* InventoryItemGun)
 {
 	InventoryItemGun->PickUp();
-	MyInventoryEnergy->AddToInventoryGun(InventoryItemGun);
+	MyInventoryGun->AddToInventoryGun(InventoryItemGun);
 }
 
 AGalaga_USFX_L01Pawn::AGalaga_USFX_L01Pawn()
@@ -118,6 +129,8 @@ AGalaga_USFX_L01Pawn::AGalaga_USFX_L01Pawn()
 	bCanFire = true;
 
 	MyInventoryEnergy = CreateDefaultSubobject<UInventoryComponent>("MyInventory");
+	MyInventoryGun = CreateDefaultSubobject<UInventoryComponent>("MyInventoryGun");
+	MyHumano = CreateDefaultSubobject<UInventoryComponent>("MyHumano");
 }
 
 void AGalaga_USFX_L01Pawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -148,6 +161,7 @@ void AGalaga_USFX_L01Pawn::SetupPlayerInputComponent(class UInputComponent* Play
 
 	PlayerInputComponent->BindAction("AbrirInventario", EInputEvent::IE_Pressed, this, &AGalaga_USFX_L01Pawn::DropItem);
 	PlayerInputComponent->BindAction("AbrirInventario", EInputEvent::IE_Pressed, this, &AGalaga_USFX_L01Pawn::DropItemGun);
+	PlayerInputComponent->BindAction("SoltarBomba", EInputEvent::IE_Pressed, this, &AGalaga_USFX_L01Pawn::DropBomba);
 }
 
 void AGalaga_USFX_L01Pawn::MoveDiagonalNO(float Value)

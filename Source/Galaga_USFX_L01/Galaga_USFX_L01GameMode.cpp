@@ -24,6 +24,7 @@
 #include "NaveEnemigaNodrizaC2.h"
 #include "InventoryActor.h"
 #include "InventoryGun.h"
+#include "Bomba.h"
 #include "InvisibilidadComponente.h"
 
 AGalaga_USFX_L01GameMode::AGalaga_USFX_L01GameMode()
@@ -32,14 +33,6 @@ AGalaga_USFX_L01GameMode::AGalaga_USFX_L01GameMode()
 	// set default pawn class to our character class
 	DefaultPawnClass = AGalaga_USFX_L01Pawn::StaticClass();
 	NaveEnemiga01 = nullptr;
-
-	for (AActor* NaveEnemiga : NavesEnemigas)
-	{
-		UInvisibilidadComponente* InvisibilidadComponente = NewObject<UInvisibilidadComponente>(NaveEnemiga, TEXT("InvisibleComponent"));
-		InvisibilidadComponente->RegisterComponent();
-		NaveEnemiga->AddOwnedComponent(InvisibilidadComponente);
-	}
-	
 }
 
 void AGalaga_USFX_L01GameMode::BeginPlay()
@@ -109,19 +102,19 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	FVector ubicacionNaveEnemigaNodrizaC2 = FVector(600.0f, 300.0f, 200.0f);
 	FRotator rotacionNaveEnemigaNodrizaC2 = FRotator(0.0f, 0.0f, 0.0f);*/
 
-	FVector ubicacionInicioNavesEnemigasCaza=FVector(600.0f, -600.0f, 200.0f);
+	FVector ubicacionInicioNavesEnemigasCaza=FVector(0.0f, -500.0f, 200.0f);
 	FRotator rotacionInicioNavesEnemigasCaza = FRotator(0.0f, 180.0f, 0.0f);
 
-	FVector ubicacionInicioNavesEnemigasTranporte=FVector(400.0f, -600.0f, 200.0f);
+	FVector ubicacionInicioNavesEnemigasTranporte=FVector(300.0f, -400.0f, 200.0f);
 	FRotator rotacionInicioNavesEnemigasTranporte = FRotator(0.0f, 180.0f, 0.0f);
 
-	FVector ubicacionInicioNavesEnemigasEspia = FVector(0.0f, 300.0f, 200.0f);
+	FVector ubicacionInicioNavesEnemigasEspia = FVector(800.0f, -600.0f, 200.0f);
 	FRotator rotacionInicioNavesEnemigasEspia = FRotator(0.0f, 270.0f, 0.0f);
 
-	FVector ubicacionInicioNavesEnemigasReabastecimiento = FVector(0.0f, -300.0f, 200.0f);
+	FVector ubicacionInicioNavesEnemigasReabastecimiento = FVector(1000.0f, 800.0f, 200.0f);
 	FRotator rotacionInicioNavesEnemigasReabastecimiento = FRotator(0.0f, 180.0f, 0.0f);
 
-	FVector ubicacionInicioNavesEnemigasNodriza = FVector(800.0f, -1400.0f, 200.0f);
+	FVector ubicacionInicioNavesEnemigasNodriza = FVector(1400.0f, -1400.0f, 200.0f);
 	FRotator rotacionInicioNavesEnemigasNodriza = FRotator(0.0f, 180.0f, 0.0f);
 
 	FVector ubicacionInventoryActor = FVector(-1800.0f, -1800.0f, 250.0f);
@@ -134,22 +127,21 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	if (World != nullptr)
 	{
 
-		for (int i = 0; i < 6; i++) {
-
-			ubicacionInicioNavesEnemigasCaza = ubicacionInicioNavesEnemigasCaza + FVector(0.0f, 200.0f, 0.0f);
-			ANaveEnemigaCaza* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaCaza>(ubicacionInicioNavesEnemigasCaza, rotacionInicioNavesEnemigasCaza);
-			NavesEnemigas.Push(NaveEnemigaTemporal);
-			NavesEnemigas.Push(NaveEnemigaTemporal);
-
-		}
-
-		for (int j = 0; j < 6; j++) {
+		for (int j = 0; j < 4; j++) {
 
 			ubicacionInicioNavesEnemigasTranporte = ubicacionInicioNavesEnemigasTranporte + FVector(0.0f, 200.0f, 0.0f);
 			ANaveEnemigaTranporte* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaTranporte>(ubicacionInicioNavesEnemigasTranporte, rotacionInicioNavesEnemigasTranporte);
 			NavesEnemigas.Push(NaveEnemigaTemporal);
-			NavesEnemigas.Push(NaveEnemigaTemporal);
+			TMNavesEnemigas.Add(NaveEnemigaTemporal->GetVelocidad()+j, NaveEnemigaTemporal);
+			//GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("NaveAnadida: %f"), TMNavesEnemigas["NaveEnemigaTranporte_0"]->GetVelocidad()));
+		}
+		
+		for (int i = 0; i < 5; i++) {
 
+			ubicacionInicioNavesEnemigasCaza = ubicacionInicioNavesEnemigasCaza + FVector(0.0f, 200.0f, 0.0f);
+			ANaveEnemigaCaza* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaCaza>(ubicacionInicioNavesEnemigasCaza, rotacionInicioNavesEnemigasCaza);
+			NavesEnemigas.Push(NaveEnemigaTemporal);
+			TMNavesEnemigas.Add(NaveEnemigaTemporal->GetVelocidad()+i, NaveEnemigaTemporal);
 		}
 
 		for (int k = 0; k < 6; k++) {
@@ -157,8 +149,7 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 			ubicacionInicioNavesEnemigasEspia = ubicacionInicioNavesEnemigasEspia + FVector(0.0f, 200.0f, 0.0f);
 			ANaveEnemigaEspia* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaEspia>(ubicacionInicioNavesEnemigasEspia, rotacionInicioNavesEnemigasEspia);
 			NavesEnemigas.Push(NaveEnemigaTemporal);
-			NavesEnemigas.Push(NaveEnemigaTemporal);
-
+			TMNavesEnemigas.Add(NaveEnemigaTemporal->GetVelocidad()+k, NaveEnemigaTemporal);
 		}
 
 		for (int l = 0; l < 6; l++) {
@@ -166,8 +157,7 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 			ubicacionInicioNavesEnemigasReabastecimiento = ubicacionInicioNavesEnemigasReabastecimiento + FVector(0.0f, -200.0f, 0.0f);
 			ANaveEnemigaReabastecimiento* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaReabastecimiento>(ubicacionInicioNavesEnemigasReabastecimiento, rotacionInicioNavesEnemigasReabastecimiento);
 			NavesEnemigas.Push(NaveEnemigaTemporal);
-			NavesEnemigas.Push(NaveEnemigaTemporal);
-
+			TMNavesEnemigas.Add(NaveEnemigaTemporal->GetVelocidad()+l, NaveEnemigaTemporal);
 		}
 
 		for (int m = 0; m < 6; m++) {
@@ -175,47 +165,10 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 			ubicacionInicioNavesEnemigasNodriza = ubicacionInicioNavesEnemigasNodriza + FVector(0.0f, 400.0f, 0.0f);
 			ANaveEnemigaNodriza* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaNodriza>(ubicacionInicioNavesEnemigasNodriza, rotacionInicioNavesEnemigasNodriza);
 			NavesEnemigas.Push(NaveEnemigaTemporal);
-			NavesEnemigas.Push(NaveEnemigaTemporal);
-
+			TMNavesEnemigas.Add(NaveEnemigaTemporal->GetVelocidad()+m, NaveEnemigaTemporal);
 		}
 
-		/*NavesEnemigas[1]->SetActorHiddenInGame(true);
-		NavesEnemigas[1]->visibilidad = false;
-		NavesEnemigas[2]->SetActorHiddenInGame(true);
-		NavesEnemigas[2]->visibilidad = false;
-		NavesEnemigas[4]->SetActorHiddenInGame(true);
-		NavesEnemigas[4]->visibilidad = false;
-		NavesEnemigas[6]->SetActorHiddenInGame(true);
-		NavesEnemigas[6]->visibilidad = false;
-		NavesEnemigas[8]->SetActorHiddenInGame(true);
-		NavesEnemigas[8]->visibilidad = false;
-		NavesEnemigas[10]->SetActorHiddenInGame(true);
-		NavesEnemigas[10]->visibilidad = false;
-		NavesEnemigas[12]->SetActorHiddenInGame(true);
-		NavesEnemigas[12]->visibilidad = false;
-		NavesEnemigas[14]->SetActorHiddenInGame(true);
-		NavesEnemigas[14]->visibilidad = false;
-		NavesEnemigas[16]->SetActorHiddenInGame(true);
-		NavesEnemigas[16]->visibilidad = false;
-		NavesEnemigas[18]->SetActorHiddenInGame(true);
-		NavesEnemigas[18]->visibilidad = false;
-		NavesEnemigas[20]->SetActorHiddenInGame(true);
-		NavesEnemigas[20]->visibilidad = false;
-		NavesEnemigas[22]->SetActorHiddenInGame(true);
-		NavesEnemigas[22]->visibilidad = false;*/
-
-		//TMap
-
-		/*for (int i = 0; i < 1; i++) {
-
-			FVector SpawnLocation = FVector((-600.0f), FMath::RandRange(-1000.0f, 1000.0f), 200.0f);
-			AObstaculo* NewObstaculo = GetWorld()->SpawnActor<AObstaculo>(AObstaculo::StaticClass(), SpawnLocation, FRotator::ZeroRotator);
-			TMObstaculosYAlienigenas.Add(SpawnLocation, NewObstaculo);
-
-		}*/
-
 		InventoryActor01 = World->SpawnActor<AInventoryActor>(ubicacionInventoryActor, rotacionInventoryActor);
-
 		InventoryGun01 = World->SpawnActor<AInventoryGun>(ubicacionInventoryGun, rotacionInventoryGun);
 
 		/*NaveEnemiga01 = World->SpawnActor<ANaveEnemiga>(ubicacionNave, rotacionNave);
@@ -266,10 +219,34 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 		NaveEnemigaNodrizaC102->SetVelocidad(-25);
 		NaveEnemigaNodrizaC202 = World->SpawnActor<ANaveEnemigaNodrizaC2>(ubicacionNaveEnemigaNodrizaC2, rotacionNaveEnemigaNodrizaC2);
 		NaveEnemigaNodrizaC202->SetVelocidad(-25);*/
+		int j = 0;
 
+		for (int i = 0; i<NavesEnemigas.Num(); i++)
+		{
+			// Generar un número aleatorio entre 0 y 1
+			int NumeroAleatorio = FMath::FRandRange(0, 20);
+			
+
+			// Umbral de probabilidad para hacer invisible la nave enemiga
+			int probabilidad = 1; // Ajusta este valor según la probabilidad deseada
+			UE_LOG(LogTemp, Warning, TEXT("Numero Aleatorio %i"), NumeroAleatorio);
+			// Si el número aleatorio es menor que el umbral, hacer invisible la nave enemiga
+			if (NumeroAleatorio < probabilidad)
+			{
+				if (j < 1) {
+					//NombreNavesEnemigas = FString::Printf(TEXT("NaveEnemigaTranporte_%i"), j);
+					UE_LOG(LogTemp, Warning, TEXT("Nave enemiga %i invisible"), NumeroAleatorio);
+					//UInvisibilidadComponente* InvisibilidadComponente = NewObject<UInvisibilidadComponente>(TMNavesEnemigas[200+j], TEXT("InvisibleComponent"));
+					UInvisibilidadComponente* InvisibilidadComponente = NewObject<UInvisibilidadComponente>(NavesEnemigas[i], TEXT("InvisibleComponent"));
+					InvisibilidadComponente->RegisterComponent();
+					//TMNavesEnemigas[200+j]->AddOwnedComponent(InvisibilidadComponente);
+					NavesEnemigas[i]->AddOwnedComponent(InvisibilidadComponente);
+					InvisibilidadComponente->AlternarVisibilidad();
+					j++;
+				}
+			}
+		}
 	}
-
-	//NaveEnemiga01->SetResistencia(100);
 }
 
 /*void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
@@ -396,7 +373,7 @@ void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
 	
 	Super::Tick(DeltaTime);
 
-	tiempoTranscurrido++;
+	/*tiempoTranscurrido++;
 
 	if (tiempoTranscurrido >= 500)
 	{
@@ -405,7 +382,7 @@ void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
 
 		// Elegir aleatoriamente 5 naves para cambiar su visibilidad
 		while (navesACambiar.Num() < 5)
-		{
+	{
 			int numeroEnemigo = FMath::RandRange(0, 20);
 
 			// Verificar si la nave ya ha sido seleccionada
@@ -438,5 +415,28 @@ void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
 				NavesEnemigas[i]->visibilidad = true;
 			}
 		}
-	}
+	}*/
+	
+	/*tiempoTranscurrido++;
+	if (tiempoTranscurrido >= 500)
+	{
+		int NumAleatorio = FMath::RandRange(0, 2);
+		int probabilidad = 1;
+		if (NumAleatorio < probabilidad)
+		{
+			UWorld* const World = GetWorld();
+			if (World != nullptr)
+			{
+				AlienigenaEnemigo01 = World->SpawnActor<AAlienigenaEnemigo>(FVector(-1000.0f, 0.0f, 250.0f), FRotator(0.0f, 180.0f, 0.0f));
+				GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, TEXT("Se creo un alienigena"));
+			}
+		}
+		else 
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, TEXT("Se creo un humano"));
+		}
+		
+		tiempoTranscurrido = 0;
+	}*/
+
 }

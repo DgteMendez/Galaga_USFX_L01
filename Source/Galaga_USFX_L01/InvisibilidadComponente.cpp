@@ -14,20 +14,21 @@ UInvisibilidadComponente::UInvisibilidadComponente()
 }
 
 void UInvisibilidadComponente::AlternarVisibilidad()
-{
-    visibilidad = !visibilidad; 
+{ 
     GetOwner()->SetActorHiddenInGame(visibilidad);
     if (visibilidad)
     {
         GetOwner()->SetActorHiddenInGame(true);
         visibilidad = false;
         GetWorld()->GetTimerManager().SetTimer(TempVisibilidad, this, &UInvisibilidadComponente::AlternarTempVisibilidad, DuracionInvisibilidad, false);
+        //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Invisible"));
     }
     else
     {
         GetOwner()->SetActorHiddenInGame(false);
         visibilidad = true;
         GetWorld()->GetTimerManager().SetTimer(TempVisibilidad, this, &UInvisibilidadComponente::AlternarTempVisibilidad, DuracionVisibilidad, false);
+        //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Visible"));
     }
 }
 

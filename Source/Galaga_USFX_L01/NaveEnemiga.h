@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MovimientoHorizontal.h"
 #include "NaveEnemiga.generated.h"
 
-class UStaticMeshComponent;
+//class UStaticMeshComponent;
 
 UCLASS(abstract)
 class GALAGA_USFX_L01_API ANaveEnemiga : public AActor
@@ -50,6 +51,7 @@ public:
 	FORCEINLINE void SetNombre(FString _nombre) { nombre = _nombre; }
 
 	bool visibilidad = true;
+	UMovimientoHorizontal* MovimientoHorizontal;
 
 public:	
 	// Sets default values for this actor's properties

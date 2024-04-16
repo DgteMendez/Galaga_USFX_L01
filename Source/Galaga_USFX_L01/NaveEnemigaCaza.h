@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "NaveEnemiga.h"
+#include "MovimientoHorizontal.h"
 #include "NaveEnemigaCaza.generated.h"
 
 /**
@@ -17,6 +18,7 @@ class GALAGA_USFX_L01_API ANaveEnemigaCaza : public ANaveEnemiga
 private:
 
 	int cantidadBombas;
+	float TiempoTranscurrido = 0;
 
 public:
 
@@ -25,6 +27,8 @@ public:
 	FORCEINLINE int GetCantidadBombas() const { return cantidadBombas; }
 
 	FORCEINLINE void SetCantidadBombas(int _cantidadBombas) { cantidadBombas = _cantidadBombas; }
+
+	UMovimientoHorizontal* MovimientoHorizontal;
 
 public:
 	virtual void Tick(float DeltaTime) override;

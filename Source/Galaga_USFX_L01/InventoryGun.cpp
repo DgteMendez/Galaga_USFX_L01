@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "InventoryGun.h"
 #include "Galaga_USFX_L01Pawn.h"
 #include "UObject/ConstructorHelpers.h"
@@ -42,5 +41,15 @@ void AInventoryGun::PutDown(FTransform TargetLocation)
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
 	SetActorLocation(TargetLocation.GetLocation());
-	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green, TEXT("Mejora de cadencia de disparo"));
+	// Obtener una referencia al pawn propietario
+	AGalaga_USFX_L01Pawn* NaveJugador = Cast<AGalaga_USFX_L01Pawn>(GetOwner());
+	if (NaveJugador) {
+		NaveJugador->FireRate *= 0.5f;
+		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green, FString::Printf(TEXT("Cadencia de disparo aumentada a: %f"), NaveJugador->FireRate));
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("Propietario no encontrado"));
+	}
+	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green, TEXT("Se retiro del inventario"));
 }

@@ -13,7 +13,6 @@ UCLASS()
 class GALAGA_USFX_L01_API AInventoryGun : public AStaticMeshActor
 {
 	GENERATED_BODY()
-
 public:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* InventoryGunMesh;

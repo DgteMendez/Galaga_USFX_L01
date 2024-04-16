@@ -14,14 +14,15 @@ ANaveEnemiga::ANaveEnemiga()
 	// static ConstructorHelpers::FObjectFinder<UStaticMesh> NaveEnemiga(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Cone.Shape_Cone'"));
 	// Create the mesh component
 	NaveEnemigaMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("NaveEnemiga"));
+	MovimientoHorizontal = CreateDefaultSubobject<UMovimientoHorizontal>(TEXT("MovimientoHorizontal"));
 	//NaveEnemigaMesh->SetStaticMesh(NaveEnemiga.Object);
 	NaveEnemigaMesh->SetupAttachment(RootComponent);
 	RootComponent = NaveEnemigaMesh;
 
-	limiteInferiorX = -1800.0f;
+	/*limiteInferiorX = -1800.0f;
 	limiteSuperiorX = 1800.0f;
 	limiteIzquierdaY = -1800.0f;
-	limiteDerechaY = 1800.0f;
+	limiteDerechaY = 1800.0f;*/
 }
 
 // Called when the game starts or when spawned

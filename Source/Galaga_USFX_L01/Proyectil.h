@@ -13,7 +13,7 @@ class GALAGA_USFX_L01_API AProyectil : public AActor
 {
 	GENERATED_BODY()
 
-private:
+protected:
 	UPROPERTY(EditAnywhere);
 	UStaticMeshComponent* ProyectilMesh;
 	float posicionX;
@@ -41,7 +41,6 @@ public:
 	FORCEINLINE void SetDano(float _dano) { dano = _dano; }
 	FORCEINLINE void SetVolumen(float _volumen) { volumen = _volumen; }
 	FORCEINLINE void SetNombre(FString _nombre) { nombre = _nombre; }
-
 	
 public:	
 	// Sets default values for this actor's properties

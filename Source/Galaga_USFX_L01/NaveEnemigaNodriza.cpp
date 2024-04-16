@@ -27,7 +27,7 @@ void ANaveEnemigaNodriza::Tick(float DeltaTime)
 
 void ANaveEnemigaNodriza::Mover(float DeltaTime)
 {
-	// Obtiene la posición actual del actor
+	/*// Obtiene la posición actual del actor
 	FVector PosicionActual = GetActorLocation();
 
 	// Genera nuevas coordenadas X e Y aleatorias
@@ -42,7 +42,7 @@ void ANaveEnemigaNodriza::Mover(float DeltaTime)
 	if (NuevaPosicion.X > limiteSuperiorX)
 	{
 		SetActorLocation(FVector(0.0f, PosicionActual.Y, PosicionActual.Z));
-	}
+	}*/
 }
 
 void ANaveEnemigaNodriza::Disparar()
