@@ -26,6 +26,7 @@
 #include "InventoryGun.h"
 #include "Bomba.h"
 #include "InvisibilidadComponente.h"
+#include "FabricaNaves_Main.h"
 
 AGalaga_USFX_L01GameMode::AGalaga_USFX_L01GameMode()
 {
@@ -39,24 +40,25 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+
 	/*FVector ubicacionNave = FVector(-900.0f, 50.0f, 250.0f);
 	FRotator rotacionNave = FRotator(0.0f, 0.0f, 0.0f);
 
 	FVector ubicacionAlienigena = FVector(1200.0f, 1300.0f, 250.0f);
 	FRotator rotacionAlienigena = FRotator(0.0f, 0.0f, 0.0f);
-	
+
 	FVector ubicacionProyectil = FVector(1200.0f, 1400.0f, 250.0f);
 	FRotator rotacionProyectil = FRotator(0.0f, 0.0f, 0.0f);
-	
+
 	FVector ubicacionEscenario = FVector(1200.0f, 1500.0f, 250.0f);
 	FRotator rotacionEscenario = FRotator(0.0f, 0.0f, 0.0f);
-	
+
 	FVector ubicacionNaveAmiga = FVector(-1200.0f, 500.0f, 199.0f);
 	FRotator rotacionNaveAmiga = FRotator(0.0f, 0.0f, 0.0f);
-	
+
 	FVector ubicacionObstaculo = FVector(800.0f, -1600.0f, 250.0f);
 	FRotator rotacionObstaculo = FRotator(0.0f, 0.0f, 0.0f);
-	
+
 	FVector ubicacionNaveEnemigaCaza = FVector(600.0f, 0.0f, 200.0f);
 	FRotator rotacionNaveEnemigaCaza = FRotator(0.0f, 180.0f, 0.0f);
 
@@ -102,10 +104,10 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	FVector ubicacionNaveEnemigaNodrizaC2 = FVector(600.0f, 300.0f, 200.0f);
 	FRotator rotacionNaveEnemigaNodrizaC2 = FRotator(0.0f, 0.0f, 0.0f);*/
 
-	FVector ubicacionInicioNavesEnemigasCaza=FVector(0.0f, -500.0f, 200.0f);
-	FRotator rotacionInicioNavesEnemigasCaza = FRotator(0.0f, 180.0f, 0.0f);
+	FVector ubicacionFactory = FVector(0.0f, 0.0f, 250.0f);
+	FRotator rotacionFactory = FRotator(0.0f, 0.0f, 0.0f);
 
-	FVector ubicacionInicioNavesEnemigasTranporte=FVector(300.0f, -400.0f, 200.0f);
+	/*FVector ubicacionInicioNavesEnemigasTranporte = FVector(300.0f, -400.0f, 200.0f);
 	FRotator rotacionInicioNavesEnemigasTranporte = FRotator(0.0f, 180.0f, 0.0f);
 
 	FVector ubicacionInicioNavesEnemigasEspia = FVector(800.0f, -600.0f, 200.0f);
@@ -115,7 +117,7 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	FRotator rotacionInicioNavesEnemigasReabastecimiento = FRotator(0.0f, 180.0f, 0.0f);
 
 	FVector ubicacionInicioNavesEnemigasNodriza = FVector(1400.0f, -1400.0f, 200.0f);
-	FRotator rotacionInicioNavesEnemigasNodriza = FRotator(0.0f, 180.0f, 0.0f);
+	FRotator rotacionInicioNavesEnemigasNodriza = FRotator(0.0f, 180.0f, 0.0f);*/
 
 	FVector ubicacionInventoryActor = FVector(-1800.0f, -1800.0f, 250.0f);
 	FRotator rotacionInventoryActor = FRotator(0.0f, 0.0f, 0.0f);
@@ -127,7 +129,8 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 	if (World != nullptr)
 	{
 
-		for (int j = 0; j < 4; j++) {
+
+		/*for (int j = 0; j < 4; j++) {
 
 			ubicacionInicioNavesEnemigasTranporte = ubicacionInicioNavesEnemigasTranporte + FVector(0.0f, 200.0f, 0.0f);
 			ANaveEnemigaTranporte* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaTranporte>(ubicacionInicioNavesEnemigasTranporte, rotacionInicioNavesEnemigasTranporte);
@@ -135,7 +138,7 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 			TMNavesEnemigas.Add(NaveEnemigaTemporal->GetVelocidad()+j, NaveEnemigaTemporal);
 			//GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("NaveAnadida: %f"), TMNavesEnemigas["NaveEnemigaTranporte_0"]->GetVelocidad()));
 		}
-		
+
 		for (int i = 0; i < 5; i++) {
 
 			ubicacionInicioNavesEnemigasCaza = ubicacionInicioNavesEnemigasCaza + FVector(0.0f, 200.0f, 0.0f);
@@ -166,7 +169,7 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 			ANaveEnemigaNodriza* NaveEnemigaTemporal = World->SpawnActor<ANaveEnemigaNodriza>(ubicacionInicioNavesEnemigasNodriza, rotacionInicioNavesEnemigasNodriza);
 			NavesEnemigas.Push(NaveEnemigaTemporal);
 			TMNavesEnemigas.Add(NaveEnemigaTemporal->GetVelocidad()+m, NaveEnemigaTemporal);
-		}
+		}*/
 
 		InventoryActor01 = World->SpawnActor<AInventoryActor>(ubicacionInventoryActor, rotacionInventoryActor);
 		InventoryGun01 = World->SpawnActor<AInventoryGun>(ubicacionInventoryGun, rotacionInventoryGun);
@@ -177,7 +180,7 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 		Proyectil01 = World->SpawnActor<AProyectil>(ubicacionProyectil, rotacionProyectil);
 		Escenario01 = World->SpawnActor<AEscenario>(ubicacionEscenario, rotacionEscenario);
 		NaveAmiga01 = World->SpawnActor<ANaveAmiga>(ubicacionNaveAmiga, rotacionNaveAmiga);
-		
+
 		Obstaculo01 = World->SpawnActor<AObstaculo>(ubicacionObstaculo, rotacionObstaculo);
 
 		NaveEnemigaCaza01 = World->SpawnActor<ANaveEnemigaCaza>(ubicacionNaveEnemigaCaza, rotacionNaveEnemigaCaza);
@@ -199,7 +202,7 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 		NaveEnemigaCazaG102->SetVelocidad(-200);
 		NaveEnemigaCazaG202 = World->SpawnActor<ANaveEnemigaCazaG2>(ubicacionNaveEnemigaCazaG2, rotacionNaveEnemigaCazaG2);
 		NaveEnemigaCazaG202->SetVelocidad(-200);
-		
+
 		NaveEnemigaEspiaI102 = World->SpawnActor<ANaveEnemigaEspiaI1>(ubicacionNaveEnemigaEspiaI1, rotacionNaveEnemigaEspiaI1);
 		NaveEnemigaEspiaI102->SetVelocidad(-150);
 		NaveEnemigaEspiaT202 = World->SpawnActor<ANaveEnemigaEspiaT2>(ubicacionNaveEnemigaEspiaT2, rotacionNaveEnemigaEspiaT2);
@@ -209,23 +212,23 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 		NaveEnemigaTranporteT102->SetVelocidad(-50);
 		NaveEnemigaTranporteT202 = World->SpawnActor<ANaveEnemigaTranporteT2>(ubicacionNaveEnemigaTranporteT2, rotacionNaveEnemigaTranporteT2);
 		NaveEnemigaTranporteT202->SetVelocidad(-10);
-		
+
 		NaveEnemigaReabastecimientoE102 = World->SpawnActor<ANaveEnemigaReabastecimientoE1>(ubicacionNaveEnemigaReabastecimientoE1, rotacionNaveEnemigaReabastecimientoE1);
 		NaveEnemigaReabastecimientoE102->SetVelocidad(-100);
 		NaveEnemigaReabastecimientoH202 = World->SpawnActor<ANaveEnemigaReabastecimientoH2>(ubicacionNaveEnemigaReabastecimientoH2, rotacionNaveEnemigaReabastecimientoH2);
 		NaveEnemigaReabastecimientoH202->SetVelocidad(-100);
-		
+
 		NaveEnemigaNodrizaC102 = World->SpawnActor<ANaveEnemigaNodrizaC1>(ubicacionNaveEnemigaNodrizaC1, rotacionNaveEnemigaNodrizaC1);
 		NaveEnemigaNodrizaC102->SetVelocidad(-25);
 		NaveEnemigaNodrizaC202 = World->SpawnActor<ANaveEnemigaNodrizaC2>(ubicacionNaveEnemigaNodrizaC2, rotacionNaveEnemigaNodrizaC2);
 		NaveEnemigaNodrizaC202->SetVelocidad(-25);*/
 		int j = 0;
 
-		for (int i = 0; i<NavesEnemigas.Num(); i++)
+		for (int i = 0; i < NavesEnemigas.Num(); i++)
 		{
 			// Generar un número aleatorio entre 0 y 1
 			int NumeroAleatorio = FMath::FRandRange(0, 20);
-			
+
 
 			// Umbral de probabilidad para hacer invisible la nave enemiga
 			int probabilidad = 1; // Ajusta este valor según la probabilidad deseada
@@ -247,6 +250,8 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 			}
 		}
 	}
+	AFabricaNaves_Main* FabricaNaves_Main = World->SpawnActor<AFabricaNaves_Main>(AFabricaNaves_Main::StaticClass());
+
 }
 
 /*void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
@@ -370,7 +375,7 @@ void AGalaga_USFX_L01GameMode::BeginPlay()
 
 void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
 {
-	
+
 	Super::Tick(DeltaTime);
 
 	/*tiempoTranscurrido++;
@@ -416,7 +421,7 @@ void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
 			}
 		}
 	}*/
-	
+
 	/*tiempoTranscurrido++;
 	if (tiempoTranscurrido >= 500)
 	{
@@ -431,11 +436,11 @@ void AGalaga_USFX_L01GameMode::Tick(float DeltaTime)
 				GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, TEXT("Se creo un alienigena"));
 			}
 		}
-		else 
+		else
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, TEXT("Se creo un humano"));
 		}
-		
+
 		tiempoTranscurrido = 0;
 	}*/
 

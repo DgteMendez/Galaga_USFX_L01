@@ -32,7 +32,7 @@ public:
 	FORCEINLINE void SetNombreEscenario(FString _nombreEscenario) { nombreEscenario = _nombreEscenario; }
 	FORCEINLINE void SetDificultad(FString _dificultad) { dificultad = _dificultad; }
 	FORCEINLINE void SetNivel(int _nivel) { nivel = _nivel; }
-
+	
 public:	
 	// Sets default values for this actor's properties
 	AEscenario();

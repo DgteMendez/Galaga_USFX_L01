@@ -31,6 +31,7 @@ class AInventoryActor;
 class AInventoryGun;
 class UInvisibilidadComponente;
 
+
 UCLASS(MinimalAPI)
 class AGalaga_USFX_L01GameMode : public AGameModeBase
 {

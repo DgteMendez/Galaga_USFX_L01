@@ -8,12 +8,12 @@
 
 class UStaticMeshComponent;
 
-UCLASS()
+UCLASS(abstract)
 class GALAGA_USFX_L01_API AObstaculo : public AActor
 {
 	GENERATED_BODY()
 	
-private:
+protected:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* ObstaculoMesh;
 	FString nombreObstaculo;
@@ -46,5 +46,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 private:
 	void Mover(float DeltaTime) PURE_VIRTUAL(AObstaculo::Mover, );
-
+	void Destruirse(float DeltaTime) PURE_VIRTUAL(AObstaculo::Destruirse, );
 };
