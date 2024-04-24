@@ -5,19 +5,19 @@
 #include "CoreMinimal.h"
 #include "Obstaculo.h"
 #include "MovimientoVertical.h"
-#include "Asteroide.generated.h"
+#include "Barrera.generated.h"
 
 UCLASS()
-class GALAGA_USFX_L01_API AAsteroide : public AObstaculo
+class GALAGA_USFX_L01_API ABarrera : public AObstaculo
 {
 	GENERATED_BODY()
 private:
 
-	float radioExplosion;
+	float tiempoAparicion;
 
 public:
 
-	AAsteroide();
+	ABarrera();
 	UMovimientoVertical* MovimientoVertical;
 
 };

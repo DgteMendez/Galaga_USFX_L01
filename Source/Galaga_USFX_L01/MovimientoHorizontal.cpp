@@ -40,21 +40,21 @@ void UMovimientoHorizontal::TickComponent(float DeltaTime, ELevelTick TickType, 
 		if (verificacion) 
 		{
 			//auto NewPos = Parent->GetActorLocation() + FVector(0.0f, Velocidad * DeltaTime, 0.0f);
-			auto NewPos = Parent->GetActorLocation() + FVector(Velocidad * DeltaTime, 0.0f, 0.0f);
+			auto NewPos = Parent->GetActorLocation() + FVector(0.0f, Velocidad * DeltaTime, 0.0f);
 			Parent->SetActorLocation(NewPos);
 		}
 		else 
 		{
-			auto NewPos = Parent->GetActorLocation() + FVector(-Velocidad * DeltaTime, 0.0f, 0.0f);
+			auto NewPos = Parent->GetActorLocation() + FVector(0.0f, -Velocidad * DeltaTime, 0.0f);
 			//auto NewPos = Parent->GetActorLocation() + FVector(0.0f, -Velocidad * DeltaTime, 0.0f);
 			Parent->SetActorLocation(NewPos);
 		}
 		
-		if(Parent->GetActorLocation().X<LimiteIzquierda)
+		if(Parent->GetActorLocation().Y<LimiteIzquierda)
 		{
 			verificacion = false;
 		}
-		else if(Parent->GetActorLocation().X>LimiteDerecha)
+		else if(Parent->GetActorLocation().Y>LimiteDerecha)
 		{
 			verificacion = true;
 		}

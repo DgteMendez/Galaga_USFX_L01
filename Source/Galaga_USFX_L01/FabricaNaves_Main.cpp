@@ -19,7 +19,7 @@ void AFabricaNaves_Main::BeginPlay()
 	Super::BeginPlay();
 	AFabrica* FabricaNaves = GetWorld()->SpawnActor<AFabricaNaves>(AFabricaNaves::StaticClass());
 	AFabrica* FabricaObstaculos = GetWorld()->SpawnActor<AFabricaObstaculos>(AFabricaObstaculos::StaticClass());
-	FVector ubicacionInicialNaves = FVector(0.0f, -300.0f, 215.0f);
+	FVector ubicacionInicialNaves = FVector(800.0f, -300.0f, 215.0f);
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -28,7 +28,7 @@ void AFabricaNaves_Main::BeginPlay()
 		ubicacionInicialNaves = ubicacionInicialNaves + FVector(0.0f, 200.0f, 0.0f);
 	}
 
-	ubicacionInicialNaves = FVector(0.0f, -1500.0f, 215.0f);
+	ubicacionInicialNaves = FVector(1400.0f, -300.0f, 215.0f);
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -37,15 +37,19 @@ void AFabricaNaves_Main::BeginPlay()
 		ubicacionInicialNaves = ubicacionInicialNaves + FVector(0.0f, 200.0f, 0.0f);
 	}
 
-	ubicacionInicialNaves = FVector(0.0f, 1500.0f, 215.0f);
+	ubicacionInicialNaves = FVector(1100.0f, -300.0f, 215.0f);
 
 	for (int i = 0; i < 4; i++)
 	{
 		ANaveEnemiga* Nave = FabricaNaves->OrdenarNave("Espia", ubicacionInicialNaves);
 		NavesEnemigas.Push(Nave);
-		ubicacionInicialNaves = ubicacionInicialNaves - FVector(0.0f, 200.0f, 0.0f);
+		ubicacionInicialNaves = ubicacionInicialNaves + FVector(0.0f, 200.0f, 0.0f);
 	}
-	AObstaculo* Obstaculo = FabricaObstaculos->OrdenarObstaculo("Asteroide", FVector(-1700.0f, 0.0f, 215.0f));
+	AObstaculo* Obstaculo = FabricaObstaculos->OrdenarObstaculo("Asteroide", FVector(300.0f, 1000.0f, 215.0f));
+	Obstaculo = FabricaObstaculos->OrdenarObstaculo("Asteroide", FVector(300.0f, -1000.0f, 215.0f));
+	Obstaculo = FabricaObstaculos->OrdenarObstaculo("Barrera", FVector(500.0f, 0.0f, 215.0f));
+	Obstaculo = FabricaObstaculos->OrdenarObstaculo("Planeta", FVector(500.0f, 1500.0f, 215.0f));
+	Obstaculo = FabricaObstaculos->OrdenarObstaculo("Planeta", FVector(500.0f, -1500.0f, 215.0f));
 }
 
 // Called every frame
